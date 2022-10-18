@@ -1,0 +1,23 @@
+*{
+    box-sizing:border-box;
+}
+
+#pad-container{
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    border: 2px solid black;
+    width:980px;
+    height:980px;
+}
+
+.row{
+    display:flex;
+    flex:1;
+}
+
+.square{
+    flex: 1;
+    border:1px dotted blue;
+    
+}
