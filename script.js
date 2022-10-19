@@ -6,6 +6,11 @@
 //Creates a grid
 const padContainer = document.getElementById('padcontainer');
 function createGrid(dimension){
+    dimension = prompt('How many pixels would you like your canvas to have?');
+    if (dimension > 100){
+        alert('You must pick a number that is not higher than 100');
+        dimension = prompt('How many pixels would you like your canvas to have?');
+    }
     for (let i = 0; i< dimension; i++){
         console.log(`creating row ${i}`)
     let createRow = document.createElement('div');
@@ -19,3 +24,17 @@ function createGrid(dimension){
         };
     };
 };
+
+function deleteGrid(){
+    let child = padContainer.firstElementChild;
+    while (child){
+        padContainer.removeChild(child);
+        child = padContainer.firstElementChild;
+    }
+}
+
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', ()=> {
+    deleteGrid();
+    createGrid();
+})
