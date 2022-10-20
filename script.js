@@ -1,7 +1,7 @@
 //Create a button listener that will prompt the user to enter a number
     //Store that number as a variable that will be used to create the dimensions of the grid (16 = 16x16 grid);
 
-//Create a loop function 
+
 
 //Creates a grid
 const padContainer = document.getElementById('padcontainer');
@@ -21,20 +21,19 @@ function createGrid(dimension){
             let createSquare = document.createElement('div');
             createSquare.classList.add('square');
             createRow.appendChild(createSquare);
-        };
-    };
-};
+            createSquare.addEventListener('mousedown',() => {
+                createSquare.style.backgroundColor='black';
+            })};};};
 
 function deleteGrid(){
     let child = padContainer.firstElementChild;
     while (child){
         padContainer.removeChild(child);
         child = padContainer.firstElementChild;
-    }
-}
+    }};
 
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', ()=> {
     deleteGrid();
     createGrid();
-})
+});
