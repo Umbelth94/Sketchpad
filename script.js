@@ -1,8 +1,6 @@
-//Create a button listener that will prompt the user to enter a number
-    //Store that number as a variable that will be used to create the dimensions of the grid (16 = 16x16 grid);
+//BUG FIXES
+//Make it so that the prompt for the grid dimensions is a seperate function and doesn't get called during the default createGrid function
 
-    
-    //Creates a grid
     const padContainer = document.getElementById('padcontainer');
     
     let mouseDown = false;
