@@ -1,5 +1,8 @@
-//BUG FIXES
-//Make it so that the prompt for the grid dimensions is a seperate function and doesn't get called during the default createGrid function
+//Future plans
+//Add a color picker
+//Add a pixel slider
+//Stylize the erase feature by having things fade out
+//Add a shading option! 
 
     const padContainer = document.getElementById('padcontainer');
     
@@ -12,30 +15,32 @@ populateGrid(gridSize); //Start with a default grid size of 16x16
             
 function populateGrid(dimension){
     for (let i = 0; i< dimension; i++){
-        let createRow = document.createElement('div');
-        createRow.classList.add('row');
-        padContainer.appendChild(createRow);
+        let row = document.createElement('div');
+        row.classList.add('row');
+        padContainer.appendChild(row);
             for (let i = 0; i<dimension; i++){
-                let createSquare = document.createElement('div');
-                createSquare.classList.add('square');
-                createRow.appendChild(createSquare);
-                createSquare.addEventListener('mouseover', drawColor); 
-                createSquare.addEventListener('mousedown', drawColor);
-                }};
-}
+                let square = document.createElement('div');
+                square.classList.add('square');
+                row.appendChild(square);
+                square.addEventListener('mouseover', drawColor); 
+                square.addEventListener('mousedown', drawColor);
+                }}};
 
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
     if (e.type ==='mouseover' && mouseDown){
         e.target.style.backgroundColor = 'black'; //You can add other options for colors here later
+    }
+    if (e.type ==='mouseover' && mouseDown && e.shiftKey){
+        e.target.style.backgroundColor = 'white'; //Erase key
     }}; 
 
 function deleteGrid(){
-let child = padContainer.firstElementChild;
-while (child){
-    padContainer.removeChild(child);
-    child = padContainer.firstElementChild;
-}};
+    let child = padContainer.firstElementChild;
+    while (child){
+        padContainer.removeChild(child);
+        child = padContainer.firstElementChild;
+    }};
 
 function getDimension(){
     let dimension = prompt('How many squared pixels would you like your canvas to be?');
@@ -74,19 +79,16 @@ function checkIfValidNumber(promptQuestion){
             alert('please enter a number lower than 100');
         }
         else if (isNumber === null){
-            console.log('nullllll');
             return null;
         }
         else if (Number.isSafeInteger(Number(isNumber)) === true && isNumber != ''){
             return isNumber;
         } else if (isNumber === ''){
-            console.log(isNumber);
             alert('Please enter a valid number');
         }
         else{
             alert('Please enter a valid number')
-        }
-        }};
+        }}};
 
 const clearCanvas = document.getElementById('erase')
 clearCanvas.addEventListener('click', ()=>{
@@ -94,5 +96,4 @@ clearCanvas.addEventListener('click', ()=>{
     if (confirmation){
     deleteGrid();
     populateGrid(gridSize);
-    }
-});
+    }});
