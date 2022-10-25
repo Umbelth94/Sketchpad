@@ -53,7 +53,7 @@ function getDimension(){
 
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', ()=> {
-    let dimension = checkIfNumber('How many squared pixels do you want your canvas?');
+    let dimension = checkIfValidNumber('How many squared pixels do you want your canvas?');
     if (dimension != null){
         if (dimension > 100){
             alert('You must pick a number that is not higher than 100');
@@ -65,8 +65,8 @@ resetButton.addEventListener('click', ()=> {
         return
     }});
 
-//Attempt a functioning prompt loop that will convert and check if a number has been input
-function checkIfNumber(promptQuestion){
+
+function checkIfValidNumber(promptQuestion){
     let isNumber;
     while (true){
         isNumber = prompt(promptQuestion);
@@ -79,8 +79,6 @@ function checkIfNumber(promptQuestion){
         }
         else if (Number.isSafeInteger(Number(isNumber)) === true && isNumber != ''){
             return isNumber;
-        // } else if (isNumber === null){
-        //     return null;
         } else if (isNumber === ''){
             console.log(isNumber);
             alert('Please enter a valid number');
@@ -89,3 +87,12 @@ function checkIfNumber(promptQuestion){
             alert('Please enter a valid number')
         }
         }};
+
+const clearCanvas = document.getElementById('erase')
+clearCanvas.addEventListener('click', ()=>{
+    let confirmation = confirm('Are you sure you want to erase your masterpiece?');
+    if (confirmation){
+    deleteGrid();
+    populateGrid(gridSize);
+    }
+});
