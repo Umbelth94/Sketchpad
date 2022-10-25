@@ -3,6 +3,7 @@
 //Add a pixel slider
 //Stylize the erase feature by having things fade out
 //Add a shading option! 
+//Have it draw on simple mouse clicks. 
 
     const padContainer = document.getElementById('padcontainer');
     
@@ -28,12 +29,20 @@ function populateGrid(dimension){
 
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
+    mouseDown = true;
+    if (mouseDown){
+        e.target.style.backgroundColor = 'black';
+    }
     if (e.type ==='mouseover' && mouseDown){
         e.target.style.backgroundColor = 'black'; //You can add other options for colors here later
     }
     if (e.type ==='mouseover' && mouseDown && e.shiftKey){
         e.target.style.backgroundColor = 'white'; //Erase key
-    }}; 
+    }
+    if (mouseDown && e.shiftKey){
+        e.target.style.backgroundColor = 'white';
+    }
+}; 
 
 function deleteGrid(){
     let child = padContainer.firstElementChild;
