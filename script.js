@@ -8,14 +8,7 @@
     document.body.onmouseup = () => (mouseDown = false); //This is to set up the ability to only draw when mouse is clicked down
     
     let gridSize = 16;
-    populateGrid(gridSize); //Start with a default grid size of 16x16
-    function createGrid(dimension){
-    if (dimension != null){
-        populateGrid(dimension);
-        gridSize = dimension;
-    } else {
-        populateGrid(gridSize);
-    }};
+populateGrid(gridSize); //Start with a default grid size of 16x16
             
 function populateGrid(dimension){
     for (let i = 0; i< dimension; i++){
@@ -60,13 +53,40 @@ function getDimension(){
 
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', ()=> {
-    let dimension = prompt('How many squared pixels would you like your canvas to be?');
-    if (dimension != null){
+    let dimension = checkIfNumber('How many squared pixels do you want your canvas?');
+    if (typeof dimension != null){
         if (dimension > 100){
             alert('You must pick a number that is not higher than 100');
         }
         deleteGrid();
-        createGrid(dimension)
+        if (dimension == null){
+            populateGrid(gridSize);
+        } else {
+            populateGrid(dimension);
+            gridSize = dimension;
+        }
     } else {
         return;
     };});
+
+//Attempt a functioning prompt loop that will convert and check if a number has been input
+function checkIfNumber(promptQuestion){
+    let isNumber;
+    while (true){
+        isNumber = prompt(promptQuestion);
+        if (isNumber === null){
+            return null;
+        }
+        if (Number.isSafeInteger(Number(isNumber)) === true && isNumber != ''){
+            console.log(`returning number` + isNumber);
+            return isNumber;
+        // } else if (isNumber === null){
+        //     return null;
+        } else if (isNumber === ''){
+            console.log(isNumber);
+            alert('Please enter a valid number');
+        }
+        else{
+            alert('Please enter a valid number')
+        }
+        }};
