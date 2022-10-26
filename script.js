@@ -5,13 +5,13 @@
 //Add a shading option! 
 //Have it draw on simple mouse clicks. 
 
-    const padContainer = document.getElementById('padcontainer');
-    
-    let mouseDown = false;
-    document.body.onmousedown = () => (mouseDown = true);
-    document.body.onmouseup = () => (mouseDown = false); //This is to set up the ability to only draw when mouse is clicked down
-    
-    let gridSize = 16;
+const padContainer = document.getElementById('padcontainer');
+
+let mouseDown = false;
+document.body.onmousedown = () => (mouseDown = true);
+document.body.onmouseup = () => (mouseDown = false); //This is to set up the ability to only draw when mouse is clicked down
+
+let gridSize = 16;
 populateGrid(gridSize); //Start with a default grid size of 16x16
             
 function populateGrid(dimension){
@@ -51,19 +51,7 @@ function deleteGrid(){
         child = padContainer.firstElementChild;
     }};
 
-function getDimension(){
-    let dimension = prompt('How many squared pixels would you like your canvas to be?');
-    if (dimension != null){
-        if (dimension > 100){
-        alert('You must pick a number that is not higher than 100');
-        dimension = prompt('How many squared pixels would you like your canvas to have?');
-        } else {
-        gridSize = dimension;
-        return dimension; 
-        }
-    } else {
-        return;
-    }};
+
 
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', ()=> {
