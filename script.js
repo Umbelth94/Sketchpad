@@ -13,8 +13,12 @@ let divColor;
 let isColorBlack = true;
 // let divColor = colorPicker.value;
 
+const blackButton = document.getElementById('black-ink');
+blackButton.addEventListener('click',() => {
+    isColorBlack = true;
+});
+
 function changeColor(e){
-    console.log(colorPicker.value);
     divColor = colorPicker.value;
     isColorBlack = false;
     // e.target.style.backgroundColor = divColor;
@@ -45,7 +49,6 @@ function populateGrid(dimension){
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
     mouseDown = true;
-
     if (mouseDown){
         if (isColorBlack == true){
             e.target.style.backgroundColor = 'black';
@@ -57,7 +60,7 @@ function drawColor(e) {
             e.target.style.backgroundColor = 'black';
         } else{
         e.target.style.backgroundColor = divColor;
-        }; //You can add other options for colors here later
+        };
     };
     if (e.type ==='mouseover' && mouseDown && e.shiftKey){
         e.target.style.backgroundColor = 'white'; //Erase key
@@ -76,47 +79,47 @@ function deleteGrid(){
 
 
     
-    const resetButton = document.getElementById('reset');
-    resetButton.addEventListener('click', ()=> {
-        let dimension = checkIfValidNumber('How many squared pixels do you want your canvas?');
-        if (dimension != null){
-            if (dimension > 100){
-                alert('You must pick a number that is not higher than 100');
-            }
-            deleteGrid();
-            populateGrid(dimension);
-            gridSize = dimension;
-        } else {
-            return
-        }});
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', ()=> {
+    let dimension = checkIfValidNumber('How many squared pixels do you want your canvas?');
+    if (dimension != null){
+        if (dimension > 100){
+            alert('You must pick a number that is not higher than 100');
+        }
+        deleteGrid();
+        populateGrid(dimension);
+        gridSize = dimension;
+    } else {
+        return
+    }});
+    
+    
+function checkIfValidNumber(promptQuestion){
+    let isNumber;
+    while (true){
+        isNumber = prompt(promptQuestion);
+        if (isNumber >100){
+            alert('please enter a number lower than 100');
+        }
+        else if (isNumber === null){
+            return null;
+        }
+        else if (Number.isSafeInteger(Number(isNumber)) === true && isNumber != ''){
+            return isNumber;
+        } else if (isNumber === ''){
+            alert('Please enter a valid number');
+        }
+        else{
+            alert('Please enter a valid number')
+        }}};
         
-        
-        function checkIfValidNumber(promptQuestion){
-            let isNumber;
-            while (true){
-                isNumber = prompt(promptQuestion);
-                if (isNumber >100){
-                    alert('please enter a number lower than 100');
-                }
-                else if (isNumber === null){
-                    return null;
-                }
-                else if (Number.isSafeInteger(Number(isNumber)) === true && isNumber != ''){
-                    return isNumber;
-                } else if (isNumber === ''){
-                    alert('Please enter a valid number');
-                }
-                else{
-                    alert('Please enter a valid number')
-                }}};
-                
-                const clearCanvas = document.getElementById('erase')
-                clearCanvas.addEventListener('click', ()=>{
-                    let confirmation = confirm('Are you sure you want to erase your masterpiece?');
-                    if (confirmation){
-                        deleteGrid();
-                        populateGrid(gridSize);
-                    }});
+        const clearCanvas = document.getElementById('erase')
+        clearCanvas.addEventListener('click', ()=>{
+            let confirmation = confirm('Are you sure you want to erase your masterpiece?');
+            if (confirmation){
+                deleteGrid();
+                populateGrid(gridSize);
+            }});
                     
                     
 
