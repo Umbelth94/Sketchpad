@@ -1,39 +1,37 @@
 //Future plans
-//Add a color picker
 //Add a pixel slider
-//Stylize the erase feature by having things fade out
+//Stylize the clear canvas feature by having things fade out
 //Add a shading option! 
-//Have it draw on simple mouse clicks. 
+//Color dropper/selecter
+//
 
 const padContainer = document.getElementById('padcontainer');
 
 const colorPicker = document.getElementById('color-picker');
 colorPicker.addEventListener('input',pickColor,false);
 let divColor;
-let isColorBlack = true;
-let toggleColor = false;
 // let divColor = colorPicker.value;
 
+let toggleBlack = true;
 const blackButton = document.getElementById('black-ink');
 blackButton.addEventListener('click',() => {
-    if(isColorBlack == false){
-        isColorBlack = true;
+    if(toggleBlack == false){
+        toggleBlack = true;
         console.log('isColorBlack is ' + isColorBlack);
         toggleRainbow = false;
         console.log('toggleRainbow is ' + toggleRainbow);
-        toggleColor = false;
+
     } else {
-        isColorBlack = false;
+        toggleBlack = false;
         console.log('isColorBlack is ' + isColorBlack)
     }
 });
 
 
 function pickColor(e){
-    toggleColor = true;
     divColor = colorPicker.value;
     console.log(divColor);
-    isColorBlack = false;
+    toggleBlack = false;
     toggleRainbow = false;
     // e.target.style.backgroundColor = divColor;
 };
@@ -79,7 +77,7 @@ borderButton.addEventListener('click',() => {
     }}});
 
 
-let rainbowOverwrite = false;
+let rainbowOverwrite = true;
 const overWriteButton = document.getElementById('rainbow-overwrite');
 overWriteButton.addEventListener('click',() =>{
     if (rainbowOverwrite == false){
@@ -97,9 +95,8 @@ rainbowButton.addEventListener('click',() =>{
     if(toggleRainbow == false){
         toggleRainbow = true;
         console.log('toggle rainbow = ' + toggleRainbow);
-        isColorBlack = false;
-        console.log('isColorBlack is ' + isColorBlack);
-        toggleColor = false;
+        toggleBlack = false;
+        console.log('isColorBlack is ' + toggleBlack);
     } else {
         return;
     }});
@@ -114,7 +111,7 @@ function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
     mouseDown = true;
     if ((e.type ==='mouseover' && mouseDown) || (mouseDown)){
-        if (isColorBlack == true){
+        if (toggleBlack == true){
             e.target.style.backgroundColor = 'black';
         } 
         else if (toggleRainbow == true){
