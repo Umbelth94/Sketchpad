@@ -26,9 +26,11 @@ blackButton.addEventListener('click',() => {
     }
 });
 
+
 function pickColor(e){
     divColor = colorPicker.value;
     isColorBlack = false;
+    toggleRainbow = false;
     // e.target.style.backgroundColor = divColor;
 };
 
@@ -76,6 +78,8 @@ borderButton.addEventListener('click',() => {
             borderToggle = true;
     }}});
 
+
+
 // let randomColor = Math.floor(Math.random()*16777215).toString(16);
 const rainbowButton = document.getElementById('rainbow-ink');
 let toggleRainbow = false;
@@ -86,11 +90,11 @@ rainbowButton.addEventListener('click',() =>{
         isColorBlack = false;
         console.log('isColorBlack is ' + isColorBlack);
     } else {
-        toggleRainbow = false;
-        console.log('toggle rainbow = ' + toggleRainbow);
-        isColorBlack = true;
-        console.log('isColorBlack is ' + isColorBlack);
-
+        return;
+        // toggleRainbow = false;
+        // console.log('toggle rainbow = ' + toggleRainbow);
+        // isColorBlack = true;
+        // console.log('isColorBlack is ' + isColorBlack);
     }});
 
 function generateRandomColor(){
@@ -110,7 +114,10 @@ function drawColor(e) {
             if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
                 console.log('trying to draw');
                 e.target.style.backgroundColor = '#' +generateRandomColor();
-            }};
+            }
+        } else {
+            e.target.style.backgroundColor = divColor;
+        }
         }
     if (e.type ==='mouseover' && mouseDown){
         if (isColorBlack == true){
@@ -120,8 +127,10 @@ function drawColor(e) {
             if(e.target.style.backgroundColor == ''){
                 console.log('trying to draw');
                 e.target.style.backgroundColor = '#' +generateRandomColor();
-            }};
-    };
+        }} else {
+            e.target.style.backgroundColor = divcolor;
+        }
+        };
     if (e.type ==='mouseover' && mouseDown && e.shiftKey){
         e.target.style.backgroundColor = 'white'; //Erase key
     }
