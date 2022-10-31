@@ -11,6 +11,7 @@ const colorPicker = document.getElementById('color-picker');
 colorPicker.addEventListener('input',pickColor,false);
 let divColor;
 let isColorBlack = true;
+let toggleColor = false;
 // let divColor = colorPicker.value;
 
 const blackButton = document.getElementById('black-ink');
@@ -20,6 +21,7 @@ blackButton.addEventListener('click',() => {
         console.log('isColorBlack is ' + isColorBlack);
         toggleRainbow = false;
         console.log('toggleRainbow is ' + toggleRainbow);
+        toggleColor = false;
     } else {
         isColorBlack = false;
         console.log('isColorBlack is ' + isColorBlack)
@@ -28,7 +30,9 @@ blackButton.addEventListener('click',() => {
 
 
 function pickColor(e){
+    toggleColor = true;
     divColor = colorPicker.value;
+    console.log(divColor);
     isColorBlack = false;
     toggleRainbow = false;
     // e.target.style.backgroundColor = divColor;
@@ -42,10 +46,6 @@ let gridSize = 16;
 let borderToggle = true;
 populateGrid(gridSize); //Start with a default grid size of 16x16
 
-// const squareWatcher = document.getElementsByClassName('square');
-// function getSquareStats(squareWatcher){
-//     console.log(squareWatcher.target.style.border);
-// }
 
 function populateGrid(dimension){
     for (let i = 0; i< dimension; i++){
@@ -99,64 +99,40 @@ rainbowButton.addEventListener('click',() =>{
         console.log('toggle rainbow = ' + toggleRainbow);
         isColorBlack = false;
         console.log('isColorBlack is ' + isColorBlack);
+        toggleColor = false;
     } else {
         return;
-        // toggleRainbow = false;
-        // console.log('toggle rainbow = ' + toggleRainbow);
-        // isColorBlack = true;
-        // console.log('isColorBlack is ' + isColorBlack);
     }});
 
 function generateRandomColor(){
     randomColor = Math.floor(Math.random()*16777215).toString(16);
     console.log(randomColor);
-    return randomColor;
+    return '#' + randomColor;
 }
 
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
     mouseDown = true;
-    if (mouseDown){
+    if ((e.type ==='mouseover' && mouseDown) || (mouseDown)){
         if (isColorBlack == true){
-            console.log(e.target.style.backgroundColor);
             e.target.style.backgroundColor = 'black';
-        } else if(toggleRainbow == true) {
+        } 
+        else if (toggleRainbow == true){
             if (rainbowOverwrite == false) {
-                e.target.style.backgroundColor = '#' +generateRandomColor();
+                e.target.style.backgroundColor = generateRandomColor();
             }
             else if (rainbowOverwrite == true){
                 if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
-                console.log('trying to draw');
-                e.target.style.backgroundColor = '#' +generateRandomColor();
+                e.target.style.backgroundColor = generateRandomColor();
             }}
-        } else {
+        } else  { //Color picker color
+            console.log('trying to draw color picked')
             e.target.style.backgroundColor = divColor;
-        }
-        }
-    if (e.type ==='mouseover' && mouseDown){
-        if (isColorBlack == true){
-            console.log(e.target.style.backgroundColor);
-            e.target.style.backgroundColor = 'black';
-        } else if (toggleRainbow == true){
-            if (rainbowOverwrite == false) {
-                e.target.style.backgroundColor = '#' +generateRandomColor();
-            }
-            else if (rainbowOverwrite == true){
-                if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
-                console.log('trying to draw');
-                e.target.style.backgroundColor = '#' +generateRandomColor();
-            }}
-        }} else {
-            e.target.style.backgroundColor = divColor;
-        }
-        ;
-    if (e.type ==='mouseover' && mouseDown && e.shiftKey){
-        e.target.style.backgroundColor = ''; //Erase key
-    }
-    if (mouseDown && e.shiftKey){
-        e.target.style.backgroundColor = '';
-    };
-};
+        }};
+        if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
+            e.target.style.backgroundColor = ''; //Erase key
+        }};
+
 function deleteGrid(){
     let child = padContainer.firstElementChild;
     while (child){
