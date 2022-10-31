@@ -8,28 +8,30 @@
 const padContainer = document.getElementById('padcontainer');
 
 const colorPicker = document.getElementById('color-picker');
-colorPicker.addEventListener('input',changeColor,false);
+colorPicker.addEventListener('input',pickColor,false);
 let divColor;
 let isColorBlack = true;
 // let divColor = colorPicker.value;
 
 const blackButton = document.getElementById('black-ink');
 blackButton.addEventListener('click',() => {
-    isColorBlack = true;
+    if(isColorBlack == false){
+        isColorBlack = true;
+        console.log('isColorBlack is ' + isColorBlack);
+        toggleRainbow = false;
+        console.log('toggleRainbow is ' + toggleRainbow);
+    } else {
+        isColorBlack = false;
+        console.log('isColorBlack is ' + isColorBlack)
+    }
 });
 
-function changeColor(e){
+function pickColor(e){
     divColor = colorPicker.value;
     isColorBlack = false;
     // e.target.style.backgroundColor = divColor;
 };
 
-// function toggleGrid(){
-//     let borders = document.querySelectorAll('div');
-//     for each(borders){
-
-//     }
-// }
 let mouseDown = false;
 document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => (mouseDown = false); //This is to set up the ability to only draw when mouse is clicked down
@@ -74,23 +76,51 @@ borderButton.addEventListener('click',() => {
             borderToggle = true;
     }}});
 
+// let randomColor = Math.floor(Math.random()*16777215).toString(16);
+const rainbowButton = document.getElementById('rainbow-ink');
+let toggleRainbow = false;
+rainbowButton.addEventListener('click',() =>{
+    if(toggleRainbow == false){
+        toggleRainbow = true;
+        console.log('toggle rainbow = ' + toggleRainbow);
+        isColorBlack = false;
+        console.log('isColorBlack is ' + isColorBlack);
+    } else {
+        toggleRainbow = false;
+        console.log('toggle rainbow = ' + toggleRainbow);
+        isColorBlack = true;
+        console.log('isColorBlack is ' + isColorBlack);
 
+    }});
+
+function generateRandomColor(){
+    randomColor = Math.floor(Math.random()*16777215).toString(16);
+    console.log(randomColor);
+    return randomColor;
+}
 
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
     mouseDown = true;
     if (mouseDown){
         if (isColorBlack == true){
+            console.log(e.target.style.backgroundColor);
             e.target.style.backgroundColor = 'black';
-        } else {
-            e.target.style.backgroundColor = divColor;
-        }}
+        } else if(toggleRainbow == true) {
+            if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
+                console.log('trying to draw');
+                e.target.style.backgroundColor = '#' +generateRandomColor();
+            }};
+        }
     if (e.type ==='mouseover' && mouseDown){
         if (isColorBlack == true){
+            console.log(e.target.style.backgroundColor);
             e.target.style.backgroundColor = 'black';
-        } else{
-        e.target.style.backgroundColor = divColor;
-        };
+        } else if (toggleRainbow == true){
+            if(e.target.style.backgroundColor == ''){
+                console.log('trying to draw');
+                e.target.style.backgroundColor = '#' +generateRandomColor();
+            }};
     };
     if (e.type ==='mouseover' && mouseDown && e.shiftKey){
         e.target.style.backgroundColor = 'white'; //Erase key
