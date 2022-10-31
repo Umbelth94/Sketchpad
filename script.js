@@ -2,7 +2,7 @@
 //Add a pixel slider
 //Stylize the clear canvas feature by having things fade out
 //Add a shading option! 
-//Color dropper/selecter
+//Color dropper/selecter that changes the color of the "Change Color" selector.  
 //
 
 const padContainer = document.getElementById('padcontainer');
