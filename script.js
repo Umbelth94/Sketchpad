@@ -79,7 +79,17 @@ borderButton.addEventListener('click',() => {
     }}});
 
 
-
+let rainbowOverwrite = false;
+const overWriteButton = document.getElementById('rainbow-overwrite');
+overWriteButton.addEventListener('click',() =>{
+    if (rainbowOverwrite == false){
+        rainbowOverwrite = true;
+        console.log('rainbow overwrite = ' + rainbowOverwrite);
+    } else {
+        rainbowOverwrite = false;
+        console.log('rainbow overwrite = ' + rainbowOverwrite);
+    }
+})
 // let randomColor = Math.floor(Math.random()*16777215).toString(16);
 const rainbowButton = document.getElementById('rainbow-ink');
 let toggleRainbow = false;
@@ -111,10 +121,14 @@ function drawColor(e) {
             console.log(e.target.style.backgroundColor);
             e.target.style.backgroundColor = 'black';
         } else if(toggleRainbow == true) {
-            if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
-                console.log('trying to draw');
+            if (rainbowOverwrite == false) {
                 e.target.style.backgroundColor = '#' +generateRandomColor();
             }
+            else if (rainbowOverwrite == true){
+                if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
+                console.log('trying to draw');
+                e.target.style.backgroundColor = '#' +generateRandomColor();
+            }}
         } else {
             e.target.style.backgroundColor = divColor;
         }
@@ -124,21 +138,25 @@ function drawColor(e) {
             console.log(e.target.style.backgroundColor);
             e.target.style.backgroundColor = 'black';
         } else if (toggleRainbow == true){
-            if(e.target.style.backgroundColor == ''){
+            if (rainbowOverwrite == false) {
+                e.target.style.backgroundColor = '#' +generateRandomColor();
+            }
+            else if (rainbowOverwrite == true){
+                if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
                 console.log('trying to draw');
                 e.target.style.backgroundColor = '#' +generateRandomColor();
+            }}
         }} else {
-            e.target.style.backgroundColor = divcolor;
+            e.target.style.backgroundColor = divColor;
         }
-        };
+        ;
     if (e.type ==='mouseover' && mouseDown && e.shiftKey){
-        e.target.style.backgroundColor = 'white'; //Erase key
+        e.target.style.backgroundColor = ''; //Erase key
     }
     if (mouseDown && e.shiftKey){
-        e.target.style.backgroundColor = 'white';
-    }
-}; 
-
+        e.target.style.backgroundColor = '';
+    };
+};
 function deleteGrid(){
     let child = padContainer.firstElementChild;
     while (child){
