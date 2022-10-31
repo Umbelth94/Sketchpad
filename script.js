@@ -8,8 +8,8 @@
 const padContainer = document.getElementById('padcontainer');
 
 const colorPicker = document.getElementById('color-picker');
-colorPicker.addEventListener('input',pickColor,false);
 let divColor;
+colorPicker.addEventListener('input',pickColor,false);
 // let divColor = colorPicker.value;
 
 let toggleBlack = true;
@@ -17,13 +17,13 @@ const blackButton = document.getElementById('black-ink');
 blackButton.addEventListener('click',() => {
     if(toggleBlack == false){
         toggleBlack = true;
-        console.log('isColorBlack is ' + isColorBlack);
+        console.log('toggleBlack is ' + toggleBlack);
         toggleRainbow = false;
         console.log('toggleRainbow is ' + toggleRainbow);
 
     } else {
         toggleBlack = false;
-        console.log('isColorBlack is ' + isColorBlack)
+        console.log('toggleBlack is ' + toggleBlack)
     }
 });
 
@@ -107,6 +107,17 @@ function generateRandomColor(){
     return '#' + randomColor;
 }
 
+let toggleDropper = false;
+const colorDropper = document.getElementById('color-dropper');
+colorDropper.addEventListener('click',() => {
+    if (toggleDropper == false){
+        toggleDropper = true;
+        toggleBlack = false;
+        console.log('toggleDropper = ' + toggleDropper);
+    } else {
+        toggleDropper = false;
+    }});
+
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
     mouseDown = true;
@@ -121,8 +132,14 @@ function drawColor(e) {
             else if (rainbowOverwrite == true){
                 if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
                 e.target.style.backgroundColor = generateRandomColor();
-            }}
-        } else  { //Color picker color
+            }}} 
+        else if (toggleDropper == true){
+            console.log('toggledroppin');
+            divColor = e.target.style.backgroundColor;
+            console.log('picking color ' + divColor);
+            toggleDropper = false;
+        }    
+        else  { //Color picker color
             console.log('trying to draw color picked')
             e.target.style.backgroundColor = divColor;
         }};
@@ -153,7 +170,8 @@ resetButton.addEventListener('click', ()=> {
         return
     }});
     
-    
+//This just checks if the user input from the prompt is a valid number, and prevents the canvas from being
+//overwritten if the prompt is canceled or empty.
 function checkIfValidNumber(promptQuestion){
     let isNumber;
     while (true){
@@ -173,13 +191,13 @@ function checkIfValidNumber(promptQuestion){
             alert('Please enter a valid number')
         }}};
         
-        const clearCanvas = document.getElementById('erase')
-        clearCanvas.addEventListener('click', ()=>{
-            let confirmation = confirm('Are you sure you want to erase your masterpiece?');
-            if (confirmation){
-                deleteGrid();
-                populateGrid(gridSize);
-            }});
+const clearCanvas = document.getElementById('erase')
+clearCanvas.addEventListener('click', ()=>{
+    let confirmation = confirm('Are you sure you want to erase your masterpiece?');
+    if (confirmation){
+        deleteGrid();
+        populateGrid(gridSize);
+    }});
                     
                     
 
