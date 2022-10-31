@@ -35,13 +35,14 @@ document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => (mouseDown = false); //This is to set up the ability to only draw when mouse is clicked down
 
 let gridSize = 16;
+let borderToggle = true;
 populateGrid(gridSize); //Start with a default grid size of 16x16
 
-const squareWatcher = document.getElementsByClassName('square');
-function getSquareStats(squareWatcher){
-    console.log(squareWatcher.target.style.border);
-}
-            
+// const squareWatcher = document.getElementsByClassName('square');
+// function getSquareStats(squareWatcher){
+//     console.log(squareWatcher.target.style.border);
+// }
+
 function populateGrid(dimension){
     for (let i = 0; i< dimension; i++){
         let row = document.createElement('div');
@@ -49,7 +50,10 @@ function populateGrid(dimension){
         padContainer.appendChild(row);
             for (let i = 0; i<dimension; i++){
                 let square = document.createElement('div');
-                square.classList.add('square','border');
+                square.classList.add('square');
+                if (borderToggle == true){
+                    square.classList.add('border');
+                }
                 row.appendChild(square);
                 square.addEventListener('mouseover', drawColor); 
                 square.addEventListener('mousedown', drawColor);
@@ -57,12 +61,18 @@ function populateGrid(dimension){
 
 
 const squares = document.getElementsByClassName('square');
-const gridButton = document.getElementById('hide-borders');
-gridButton.addEventListener('click',() => {
-    for (i = 0; i<squares.length;i++){
+const borderButton = document.getElementById('hide-borders');
+borderButton.addEventListener('click',() => {
+    if (borderToggle == true){
+        for (i = 0; i<squares.length;i++){
         squares[i].classList.toggle('border');
-    }
-})
+        borderToggle = false;
+    }}
+    else if (borderToggle == false){
+        for (i = 0; i<squares.length;i++){
+            squares[i].classList.toggle('border');
+            borderToggle = true;
+    }}});
 
 
 
