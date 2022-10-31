@@ -27,12 +27,13 @@ blackButton.addEventListener('click',() => {
     }
 });
 
-
+let toggleColor = false;
 function pickColor(e){
     divColor = colorPicker.value;
     console.log(divColor);
     toggleBlack = false;
     toggleRainbow = false;
+    toggleColor = true;
     // e.target.style.backgroundColor = divColor;
 };
 
@@ -97,6 +98,7 @@ rainbowButton.addEventListener('click',() =>{
         console.log('toggle rainbow = ' + toggleRainbow);
         toggleBlack = false;
         console.log('isColorBlack is ' + toggleBlack);
+        toggleColor = false;
     } else {
         return;
     }});
@@ -113,6 +115,8 @@ colorDropper.addEventListener('click',() => {
     if (toggleDropper == false){
         toggleDropper = true;
         toggleBlack = false;
+        toggleRainbow = false;
+        toggleColor = true;
         console.log('toggleDropper = ' + toggleDropper);
     } else {
         toggleDropper = false;
@@ -138,8 +142,10 @@ function drawColor(e) {
             divColor = e.target.style.backgroundColor;
             console.log('picking color ' + divColor);
             toggleDropper = false;
+            toggleColor = true;
+
         }    
-        else  { //Color picker color
+        else if (toggleColor == true) { //Color picker color
             console.log('trying to draw color picked')
             e.target.style.backgroundColor = divColor;
         }};
