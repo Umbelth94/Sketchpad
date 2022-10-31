@@ -18,7 +18,10 @@
 
 .square{
     flex: 1;
-    border:1px dotted black;
+}
+
+.border{
+    border:1px dotted rgb(54, 52, 52);
 }
 
 

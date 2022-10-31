@@ -24,12 +24,23 @@ function changeColor(e){
     // e.target.style.backgroundColor = divColor;
 };
 
+// function toggleGrid(){
+//     let borders = document.querySelectorAll('div');
+//     for each(borders){
+
+//     }
+// }
 let mouseDown = false;
 document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => (mouseDown = false); //This is to set up the ability to only draw when mouse is clicked down
 
 let gridSize = 16;
 populateGrid(gridSize); //Start with a default grid size of 16x16
+
+const squareWatcher = document.getElementsByClassName('square');
+function getSquareStats(squareWatcher){
+    console.log(squareWatcher.target.style.border);
+}
             
 function populateGrid(dimension){
     for (let i = 0; i< dimension; i++){
@@ -38,11 +49,20 @@ function populateGrid(dimension){
         padContainer.appendChild(row);
             for (let i = 0; i<dimension; i++){
                 let square = document.createElement('div');
-                square.classList.add('square');
+                square.classList.add('square','border');
                 row.appendChild(square);
                 square.addEventListener('mouseover', drawColor); 
                 square.addEventListener('mousedown', drawColor);
                 }}};
+
+
+const squares = document.getElementsByClassName('square');
+const gridButton = document.getElementById('hide-borders');
+gridButton.addEventListener('click',() => {
+    for (i = 0; i<squares.length;i++){
+        squares[i].classList.toggle('border');
+    }
+})
 
 
 
