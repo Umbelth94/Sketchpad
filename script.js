@@ -9,7 +9,16 @@ const padContainer = document.getElementById('padcontainer');
 
 const colorPicker = document.getElementById('color-picker');
 let divColor;
-colorPicker.addEventListener('input',pickColor,false);
+colorPicker.addEventListener('input',pickColor);
+let toggleColor = false;
+function pickColor(e){
+    divColor = colorPicker.value;
+    console.log(divColor);
+    toggleBlack = false;
+    toggleRainbow = false;
+    toggleColor = true;
+    // e.target.style.backgroundColor = divColor;
+};
 // let divColor = colorPicker.value;
 
 let toggleBlack = true;
@@ -27,15 +36,6 @@ blackButton.addEventListener('click',() => {
     }
 });
 
-let toggleColor = false;
-function pickColor(e){
-    divColor = colorPicker.value;
-    console.log(divColor);
-    toggleBlack = false;
-    toggleRainbow = false;
-    toggleColor = true;
-    // e.target.style.backgroundColor = divColor;
-};
 
 let mouseDown = false;
 document.body.onmousedown = () => (mouseDown = true);
@@ -68,14 +68,14 @@ const borderButton = document.getElementById('hide-borders');
 borderButton.addEventListener('click',() => {
     if (borderToggle == true){
         for (i = 0; i<squares.length;i++){
-        squares[i].classList.toggle('border');
+        squares[i].classList.toggle ('border');
         borderToggle = false;
     }}
     else if (borderToggle == false){
-        for (i = 0; i<squares.length;i++){
-            squares[i].classList.toggle('border');
+        for (i = 0; i<squares.length;i++){ //SQUARES CAN BE TARGETED NOW USING THIS ARRAY METHOD THING
+            squares[i].classList.toggle('border'); //SQUARES CAN BE TARGETED NOW USING THIS ARRAY METHOD THING
             borderToggle = true;
-    }}});
+    }}}); //SQUARES CAN BE TARGETED NOW
 
 
 let rainbowOverwrite = true;
@@ -109,6 +109,12 @@ function generateRandomColor(){
     return '#' + randomColor;
 }
 
+
+//WORK IT OUT HERE
+//When toggleDropper == true, cursor will select a div's bg in rgb(a,b,c) format.
+//Still need to find a way convert the rgb that is created from selecting the divs and then converting it to hex
+//Temporary work around is to just change the color of the button itself to whatever color is selected.
+//This feels cheap but gets the point across
 let toggleDropper = false;
 const colorDropper = document.getElementById('color-dropper');
 colorDropper.addEventListener('click',() => {
@@ -117,7 +123,7 @@ colorDropper.addEventListener('click',() => {
         toggleBlack = false;
         toggleRainbow = false;
         toggleColor = true;
-        console.log('toggleDropper = ' + toggleDropper);
+        //set divColor equal to the colorPicker
     } else {
         toggleDropper = false;
     }});
@@ -140,10 +146,13 @@ function drawColor(e) {
         else if (toggleDropper == true){
             console.log('toggledroppin');
             divColor = e.target.style.backgroundColor;
+            colorDropper.style.backgroundColor = divColor;
             console.log('picking color ' + divColor);
+            // console.log(valueToHex(divColor));
+            console.log(divColor);
             toggleDropper = false;
+            console.log('attempting to convert ' + divColor +' to ' + valueToHex(divColor));
             toggleColor = true;
-
         }    
         else if (toggleColor == true) { //Color picker color
             console.log('trying to draw color picked')
@@ -152,6 +161,15 @@ function drawColor(e) {
         if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
             e.target.style.backgroundColor = ''; //Erase key
         }};
+
+function valueToHex(a){
+    let hex = a.toString(16);
+    return hex.length == 1 ? '0' + hex : hex;
+}
+
+function rgbToHex(r, g, b){
+    return '#' + valueToHex(r) + valueToHex(g) + valueToHex(b);
+} //Trying out div color conversion to hex here
 
 function deleteGrid(){
     let child = padContainer.firstElementChild;
