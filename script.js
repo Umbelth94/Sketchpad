@@ -130,16 +130,37 @@ function generateRandomColor(){
 //When toggleDropper == true, cursor will select a div's bg in rgb(a,b,c) format.
 //Still need to find a way convert the rgb that is created from selecting the divs and then converting it to hex
 //Temporary work around is to just change the color of the button itself to whatever color is selected.
-//This feels cheap but gets the point across
+function valueToHex(a){
+    let hex = a.toString(16);
+    return hex.length == 1 ? '0' + hex : hex;
+}
+
+function rgbToHex(r, g, b){
+    return '#' + valueToHex(r) + valueToHex(g) + valueToHex(b);
+} //Trying out div color conversion to hex here
+
+//Grab RGB values from the divColor (for the color picker);
+function parseRGB(string){
+    let rgbValues = string.split(',');
+    console.log(rgbValues);
+    rgbValues[0] = rgbValues[0].replace('rgb(','');
+    rgbValues[1] = rgbValues[1].replace(' ','');
+    rgbValues[2] = rgbValues[2].replace(' ','');
+    rgbValues[2] = rgbValues[2].replace(')','');
+    console.log(rgbValues);
+    return rgbValues;    //Take out all the other junk so that I'm left with just the 3 numbers
+};
 let toggleDropper = false;
 const colorDropper = document.getElementById('color-dropper');
 colorDropper.addEventListener('click',() => {
     if (toggleDropper == false){
         toggleDropper = true;
         toggleBlack = false;
+        blackButton.classList.remove('toggled');
         toggleRainbow = false;
+        rainbowButton.classList.remove('toggled');
+        overWriteButton.classList.remove('toggled');
         toggleColor = true;
-        //set divColor equal to the colorPicker
     } else {
         toggleDropper = false;
     }});
@@ -182,26 +203,6 @@ function drawColor(e) {
             e.target.style.backgroundColor = ''; //Erase key
         }};
 
-function valueToHex(a){
-    let hex = a.toString(16);
-    return hex.length == 1 ? '0' + hex : hex;
-}
-
-function rgbToHex(r, g, b){
-    return '#' + valueToHex(r) + valueToHex(g) + valueToHex(b);
-} //Trying out div color conversion to hex here
-
-//Grab RGB values from the divColor (for the color picker);
-function parseRGB(string){
-    let rgbValues = string.split(',');
-    console.log(rgbValues);
-    rgbValues[0] = rgbValues[0].replace('rgb(','');
-    rgbValues[1] = rgbValues[1].replace(' ','');
-    rgbValues[2] = rgbValues[2].replace(' ','');
-    rgbValues[2] = rgbValues[2].replace(')','');
-    console.log(rgbValues);
-    return rgbValues;    //Take out all the other junk so that I'm left with just the 3 numbers
-};
 
 
 function deleteGrid(){
