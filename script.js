@@ -2,8 +2,9 @@
 //Add a pixel slider
 //Stylize the clear canvas feature by having things fade out
 //Add a shading option! 
-//Color dropper/selecter that changes the color of the "Change Color" selector.  
-//
+//Color pallet that populates as colors are selected, so the user can swap quickly between colors they have used
+//On button press for toggleables, have them switch a 'pressed' style until they are untoggled.
+
 
 const padContainer = document.getElementById('padcontainer');
 
@@ -26,11 +27,14 @@ const blackButton = document.getElementById('black-ink');
 blackButton.addEventListener('click',() => {
     if(toggleBlack == false){
         toggleBlack = true;
+        blackButton.classList.add('toggled')
         console.log('toggleBlack is ' + toggleBlack);
         toggleRainbow = false;
+        rainbowButton.classList.remove('toggled');
         console.log('toggleRainbow is ' + toggleRainbow);
 
     } else {
+        blackButton.classList.remove('toggled');
         toggleBlack = false;
         console.log('toggleBlack is ' + toggleBlack)
     }
@@ -67,26 +71,34 @@ const squares = document.getElementsByClassName('square');
 const borderButton = document.getElementById('hide-borders');
 borderButton.addEventListener('click',() => {
     if (borderToggle == true){
+        borderButton.classList.add('toggled');
         for (i = 0; i<squares.length;i++){
         squares[i].classList.toggle ('border');
         borderToggle = false;
     }}
     else if (borderToggle == false){
+        borderButton.classList.remove('toggled');
         for (i = 0; i<squares.length;i++){ //SQUARES CAN BE TARGETED NOW USING THIS ARRAY METHOD THING
             squares[i].classList.toggle('border'); //SQUARES CAN BE TARGETED NOW USING THIS ARRAY METHOD THING
             borderToggle = true;
     }}}); //SQUARES CAN BE TARGETED NOW
 
 
-let rainbowOverwrite = true;
+let rainbowOverwrite = false;
 const overWriteButton = document.getElementById('rainbow-overwrite');
 overWriteButton.addEventListener('click',() =>{
+    if (toggleRainbow == true){
     if (rainbowOverwrite == false){
         rainbowOverwrite = true;
+        overWriteButton.classList.add('toggled');
         console.log('rainbow overwrite = ' + rainbowOverwrite);
     } else {
         rainbowOverwrite = false;
+        overWriteButton.classList.remove('toggled');
         console.log('rainbow overwrite = ' + rainbowOverwrite);
+    }}
+    else {
+        alert('You must turn on rainbow ink to use this feature');
     }
 })
 // let randomColor = Math.floor(Math.random()*16777215).toString(16);
@@ -95,11 +107,15 @@ let toggleRainbow = false;
 rainbowButton.addEventListener('click',() =>{
     if(toggleRainbow == false){
         toggleRainbow = true;
+        rainbowButton.classList.add('toggled');
         console.log('toggle rainbow = ' + toggleRainbow);
         toggleBlack = false;
+        blackButton.classList.remove('toggled');
         console.log('isColorBlack is ' + toggleBlack);
         toggleColor = false;
     } else {
+        toggleRainbow = false;
+        rainbowButton.classList.remove('toggled');
         return;
     }});
 
@@ -109,7 +125,7 @@ function generateRandomColor(){
     return '#' + randomColor;
 }
 
-
+//Trying out div color conversion to hex here
 //WORK IT OUT HERE
 //When toggleDropper == true, cursor will select a div's bg in rgb(a,b,c) format.
 //Still need to find a way convert the rgb that is created from selecting the divs and then converting it to hex
@@ -128,6 +144,8 @@ colorDropper.addEventListener('click',() => {
         toggleDropper = false;
     }});
 
+
+
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
     mouseDown = true;
@@ -136,18 +154,20 @@ function drawColor(e) {
             e.target.style.backgroundColor = 'black';
         } 
         else if (toggleRainbow == true){
-            if (rainbowOverwrite == false) {
+            if (rainbowOverwrite == true) {
                 e.target.style.backgroundColor = generateRandomColor();
             }
-            else if (rainbowOverwrite == true){
+            else if (rainbowOverwrite == false){
                 if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
                 e.target.style.backgroundColor = generateRandomColor();
             }}} 
         else if (toggleDropper == true){
             console.log('toggledroppin');
             divColor = e.target.style.backgroundColor;
-            colorDropper.style.backgroundColor = divColor;
-            console.log('picking color ' + divColor);
+            let rgbArray = parseRGB(divColor); 
+            colorPicker.value = rgbToHex(+rgbArray[0],+rgbArray[1],+rgbArray[2]);
+            // colorDropper.style.backgroundColor = divColor;
+            // console.log('picking color ' + divColor);
             // console.log(valueToHex(divColor));
             console.log(divColor);
             toggleDropper = false;
@@ -170,6 +190,19 @@ function valueToHex(a){
 function rgbToHex(r, g, b){
     return '#' + valueToHex(r) + valueToHex(g) + valueToHex(b);
 } //Trying out div color conversion to hex here
+
+//Grab RGB values from the divColor (for the color picker);
+function parseRGB(string){
+    let rgbValues = string.split(',');
+    console.log(rgbValues);
+    rgbValues[0] = rgbValues[0].replace('rgb(','');
+    rgbValues[1] = rgbValues[1].replace(' ','');
+    rgbValues[2] = rgbValues[2].replace(' ','');
+    rgbValues[2] = rgbValues[2].replace(')','');
+    console.log(rgbValues);
+    return rgbValues;    //Take out all the other junk so that I'm left with just the 3 numbers
+};
+
 
 function deleteGrid(){
     let child = padContainer.firstElementChild;
