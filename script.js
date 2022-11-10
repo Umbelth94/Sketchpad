@@ -5,6 +5,9 @@
 //Color pallet that populates as colors are selected, so the user can swap quickly between colors they have used
 //On button press for toggleables, have them switch a 'pressed' style until they are untoggled.
 
+//BUGS
+    //CANNOT GET RAINBOW OVERWRITE OR COLOR OPACITY'S TO CHANGE 
+
 
 const padContainer = document.getElementById('padcontainer');
 
@@ -176,6 +179,7 @@ shadingButton.addEventListener('click', () => {
         shadingButton.classList.remove('toggled');
     }
     });
+
 let randomColor;
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
@@ -195,9 +199,10 @@ function drawColor(e) {
                 }
             }
             else if (toggleRainbow == true){
+                // let opacityLevel = +e.target.style.opacity;
                 if (rainbowOverwrite == false){ //Rainbow overwrite off
                     if (e.target.style.backgroundColor != '');{
-                        randomColor = e.target.style.backgroundColor;
+                        randomColor = e.target.style.backgroundColor; //Sets randomcolor to match the color that 
                         if (opacityLevel <=1) {
                             e.target.style.backgroundColor = randomColor;
                             opacityLevel += 0.2;
@@ -229,38 +234,7 @@ function drawColor(e) {
                     else {
                         e.target.style.backgroundColor = randomColor;
                     }
-                }
-                // if (rainbowOverwrite == true) {
-                //     console.log(opacityLevel);
-                //     if (opacityLevel <= 1){
-                //         e.target.style.backgroundColor = randomColor;
-                //         console.log(opacityLevel);
-                //         opacityLevel += 0.2;
-                //         e.target.style.opacity = opacityLevel;
-                //     }
-                // }
-                // else if (rainbowOverwrite == false){
-                //     if (e.target.style.background == randomColor){
-                //         if (opacityLevel <= 1){
-                //             console.log(opacityLevel);
-                //             opacityLevel += 0.2;
-                //             e.target.style.opacity = opacityLevel;
-                //             e.target.style.backGround =randomColor
-                //         }
-                //     }
-                //     if(e.target.style.backgroundColor == randomColor){ 
-                //         if (opacityLevel <= 1){
-                //             console.log(opacityLevel);
-                //             opacityLevel += 0.2;
-                //             e.target.style.opacity = opacityLevel;
-                //         };
-                //         if (e.target.style.backgroundColor != randomColor){
-                //             e.target.style.backgroundColor = randomColor;
-
-                //         }
-                        // e.target.style.backgroundColor = randomColor;
-                    // else if (e.target.style.backgroundColor == )
-                // }}} 
+                }}
             else if (toggleDropper == true){
                 console.log('toggledroppin');
                 divColor = e.target.style.backgroundColor;
@@ -274,14 +248,17 @@ function drawColor(e) {
                 console.log('attempting to convert ' + divColor +' to ' + valueToHex(divColor));
                 toggleColor = true;
             }    
-            else if (toggleColor == true) { //Color picker color
-                console.log('trying to draw color picked')
+            else if (toggleColor == true) {
+                if (opacityLevel <= 1){//Color picker color
                 e.target.style.backgroundColor = divColor;
+                opacityLevel += 0.2;
+                e.target.style.opacity = opacityLevel;
+                } //WORK ON THIS NEXT, I CAN'T GET THE OPACITY TO REGISTER FOR THIS.  
             };
             if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
                 e.target.style.backgroundColor = '';
                 e.target.style.opacity = 0.2;  //Erase key
-            }}}}};
+            }}}};
 
 
 
