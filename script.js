@@ -165,43 +165,63 @@ colorDropper.addEventListener('click',() => {
         toggleDropper = false;
     }});
 
-
+let shadingToggle = false;
+const shadingButton = document.getElementById('shading');
+shadingButton.addEventListener('click', () => {
+    if (shadingToggle == false){
+        shadingToggle = true;
+        shadingButton.classList.add('toggled');
+    } else {
+        shadingToggle = false;
+        shadingButton.classList.remove('toggled');
+    }
+    });
 
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
     mouseDown = true;
     if ((e.type ==='mouseover' && mouseDown) || (mouseDown)){
-        if (toggleBlack == true){
-            e.target.style.backgroundColor = 'black';
-        } 
-        else if (toggleRainbow == true){
-            if (rainbowOverwrite == true) {
-                e.target.style.backgroundColor = generateRandomColor();
-            }
-            else if (rainbowOverwrite == false){
-                if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
-                e.target.style.backgroundColor = generateRandomColor();
-            }}} 
-        else if (toggleDropper == true){
-            console.log('toggledroppin');
-            divColor = e.target.style.backgroundColor;
-            let rgbArray = parseRGB(divColor); 
-            colorPicker.value = rgbToHex(+rgbArray[0],+rgbArray[1],+rgbArray[2]);
-            // colorDropper.style.backgroundColor = divColor;
-            // console.log('picking color ' + divColor);
-            // console.log(valueToHex(divColor));
-            console.log(divColor);
-            toggleDropper = false;
-            console.log('attempting to convert ' + divColor +' to ' + valueToHex(divColor));
-            toggleColor = true;
-        }    
-        else if (toggleColor == true) { //Color picker color
-            console.log('trying to draw color picked')
-            e.target.style.backgroundColor = divColor;
-        }};
-        if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
-            e.target.style.backgroundColor = ''; //Erase key
-        }};
+        //Start Shaded versions here 
+        //Make functions out of each of these options at some point
+        if (shadingToggle == true){
+            let opacityLevel = +e.target.style.opacity;
+            if (toggleBlack == true){
+                console.log(typeof opacityLevel);
+                if (opacityLevel <= 1){
+                    e.target.style.backgroundColor = 'black';
+                    console.log(opacityLevel);
+                    opacityLevel += 0.2;
+                    e.target.style.opacity = opacityLevel;
+                }
+            }}}
+            else if (toggleRainbow == true){
+                if (rainbowOverwrite == true) {
+                    e.target.style.backgroundColor = generateRandomColor();
+                }
+                else if (rainbowOverwrite == false){
+                    if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
+                    e.target.style.backgroundColor = generateRandomColor();
+                }}} 
+            else if (toggleDropper == true){
+                console.log('toggledroppin');
+                divColor = e.target.style.backgroundColor;
+                let rgbArray = parseRGB(divColor); 
+                colorPicker.value = rgbToHex(+rgbArray[0],+rgbArray[1],+rgbArray[2]);
+                // colorDropper.style.backgroundColor = divColor;
+                // console.log('picking color ' + divColor);
+                // console.log(valueToHex(divColor));
+                console.log(divColor);
+                toggleDropper = false;
+                console.log('attempting to convert ' + divColor +' to ' + valueToHex(divColor));
+                toggleColor = true;
+            }    
+            else if (toggleColor == true) { //Color picker color
+                console.log('trying to draw color picked')
+                e.target.style.backgroundColor = divColor;
+            };
+            if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
+                e.target.style.backgroundColor = ''; //Erase key
+            }};
 
 
 
