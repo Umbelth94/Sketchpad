@@ -195,10 +195,18 @@ function drawColor(e) {
                 }
             }
             else if (toggleRainbow == true){
-                if (rainbowOverwrite == false){
+                if (rainbowOverwrite == false){ //Rainbow overwrite off
                     if (e.target.style.backgroundColor != '');{
                         randomColor = e.target.style.backgroundColor;
                         if (opacityLevel <=1) {
+                            e.target.style.backgroundColor = randomColor;
+                            opacityLevel += 0.2;
+                            e.target.style.opacity = opacityLevel;
+                        }
+                    }
+                    if (e.target.style.backgroundColor == 'white'){
+                        randomColor = generateRandomColor();
+                        if (opacityLevel <= 1){
                             e.target.style.backgroundColor = randomColor;
                             opacityLevel += 0.2;
                             e.target.style.opacity = opacityLevel;
@@ -210,17 +218,18 @@ function drawColor(e) {
                             e.target.style.backgroundColor = randomColor
                             opacityLevel += 0.2;
                             e.target.style.opacity = opacityLevel;
-                        }
-                    } else if (e.target.style.backgroundColor == randomColor){
-                        if (opacityLevel <=1){
-                            opacityLevel += 0.2;
-                            e.target.style.opacity = opacityLevel;
-                        }
+                }}}
+                else if (rainbowOverwrite == true){ //Rainbow overwrite on
+                    randomColor = generateRandomColor();
+                    if (opacityLevel <= 1) {
+                        e.target.style.backgroundColor = randomColor;
+                        opacityLevel += 0.2;
+                        e.target.stlye.opacity = opacityLevel;
                     }
-
+                    else {
+                        e.target.style.backgroundColor = randomColor;
+                    }
                 }
-                // randomColor = generateRandomColor();
-                // console.log(randomColor);
                 // if (rainbowOverwrite == true) {
                 //     console.log(opacityLevel);
                 //     if (opacityLevel <= 1){
@@ -270,7 +279,8 @@ function drawColor(e) {
                 e.target.style.backgroundColor = divColor;
             };
             if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
-                e.target.style.backgroundColor = ''; //Erase key
+                e.target.style.backgroundColor = '';
+                e.target.style.opacity = 0.2;  //Erase key
             }}}}};
 
 
