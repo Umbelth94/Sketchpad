@@ -176,7 +176,7 @@ shadingButton.addEventListener('click', () => {
         shadingButton.classList.remove('toggled');
     }
     });
-
+let randomColor;
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
     mouseDown = true;
@@ -193,15 +193,65 @@ function drawColor(e) {
                     opacityLevel += 0.2;
                     e.target.style.opacity = opacityLevel;
                 }
-            }}}
+            }
             else if (toggleRainbow == true){
-                if (rainbowOverwrite == true) {
-                    e.target.style.backgroundColor = generateRandomColor();
+                if (rainbowOverwrite == false){
+                    if (e.target.style.backgroundColor != '');{
+                        randomColor = e.target.style.backgroundColor;
+                        if (opacityLevel <=1) {
+                            e.target.style.backgroundColor = randomColor;
+                            opacityLevel += 0.2;
+                            e.target.style.opacity = opacityLevel;
+                        }
+                    }
+                    randomColor = generateRandomColor();
+                    if (e.target.style.backgroundColor ==''){
+                        if (opacityLevel <= 1){
+                            e.target.style.backgroundColor = randomColor
+                            opacityLevel += 0.2;
+                            e.target.style.opacity = opacityLevel;
+                        }
+                    } else if (e.target.style.backgroundColor == randomColor){
+                        if (opacityLevel <=1){
+                            opacityLevel += 0.2;
+                            e.target.style.opacity = opacityLevel;
+                        }
+                    }
+
                 }
-                else if (rainbowOverwrite == false){
-                    if(e.target.style.backgroundColor == ''){ //Only draws over white space (make this a togleable function);
-                    e.target.style.backgroundColor = generateRandomColor();
-                }}} 
+                // randomColor = generateRandomColor();
+                // console.log(randomColor);
+                // if (rainbowOverwrite == true) {
+                //     console.log(opacityLevel);
+                //     if (opacityLevel <= 1){
+                //         e.target.style.backgroundColor = randomColor;
+                //         console.log(opacityLevel);
+                //         opacityLevel += 0.2;
+                //         e.target.style.opacity = opacityLevel;
+                //     }
+                // }
+                // else if (rainbowOverwrite == false){
+                //     if (e.target.style.background == randomColor){
+                //         if (opacityLevel <= 1){
+                //             console.log(opacityLevel);
+                //             opacityLevel += 0.2;
+                //             e.target.style.opacity = opacityLevel;
+                //             e.target.style.backGround =randomColor
+                //         }
+                //     }
+                //     if(e.target.style.backgroundColor == randomColor){ 
+                //         if (opacityLevel <= 1){
+                //             console.log(opacityLevel);
+                //             opacityLevel += 0.2;
+                //             e.target.style.opacity = opacityLevel;
+                //         };
+                //         if (e.target.style.backgroundColor != randomColor){
+                //             e.target.style.backgroundColor = randomColor;
+
+                //         }
+                        // e.target.style.backgroundColor = randomColor;
+                    // else if (e.target.style.backgroundColor == )
+                // }}} 
             else if (toggleDropper == true){
                 console.log('toggledroppin');
                 divColor = e.target.style.backgroundColor;
@@ -221,7 +271,7 @@ function drawColor(e) {
             };
             if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
                 e.target.style.backgroundColor = ''; //Erase key
-            }};
+            }}}}};
 
 
 
