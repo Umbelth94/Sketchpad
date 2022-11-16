@@ -21,7 +21,15 @@
 }
 
 .border{
-    border:1px dotted rgb(54, 52, 52);
+    border:1px dotted rgba(0,0,0,1);
+}
+
+.darkBorder{
+    border:1px dotted rgba(0,0,0,1);
+}
+
+.opaque{
+    opacity:1;
 }
 
 .toggled{

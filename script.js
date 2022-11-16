@@ -7,6 +7,7 @@
 
 //BUGS
     //CANNOT GET RAINBOW OVERWRITE OR COLOR OPACITY'S TO CHANGE 
+    //Cannot get border to stay unaffected by opacity changes (may not be possible?);
 
 
 const padContainer = document.getElementById('padcontainer');
@@ -180,85 +181,82 @@ shadingButton.addEventListener('click', () => {
     }
     });
 
+
+
 let randomColor;
+function colorSquare(e,color){
+    e.target.style.backgroundColor = color;
+}
+function colorSquareShaded(e,color,opacityLevel){
+    if (shadingToggle == true){
+        if (opacityLevel < 1){
+        e.target.style.backgroundColor = color;
+        opacityLevel += 0.2;
+        e.target.style.opacity = opacityLevel;
+    }}
+    else {
+        e.target.style.backgroundColor = color;
+        e.target.style.opacity = 1;
+    }
+};
+
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
     mouseDown = true;
     if ((e.type ==='mouseover' && mouseDown) || (mouseDown)){
         //Start Shaded versions here 
         //Make functions out of each of these options at some point
-        if (shadingToggle == true){
-            let opacityLevel = +e.target.style.opacity;
-            if (toggleBlack == true){
-                console.log(typeof opacityLevel);
-                if (opacityLevel <= 1){
-                    e.target.style.backgroundColor = 'black';
-                    console.log(opacityLevel);
-                    opacityLevel += 0.2;
-                    e.target.style.opacity = opacityLevel;
+        let opacityLevel = +e.target.style.opacity;
+        if (toggleBlack == true){
+            colorSquareShaded(e,'black',opacityLevel);
+        }
+        else if (toggleRainbow == true){
+            // let opacityLevel = +e.target.style.opacity;
+            if (rainbowOverwrite == false){ //Rainbow overwrite off
+                if (e.target.style.backgroundColor != '');{ //If the square isn't blank, do this
+                    randomColor = e.target.style.backgroundColor; //Sets randomcolor to match the color that 
+                    colorSquareShaded(e,randomColor,opacityLevel);
                 }
-            }
-            else if (toggleRainbow == true){
-                // let opacityLevel = +e.target.style.opacity;
-                if (rainbowOverwrite == false){ //Rainbow overwrite off
-                    if (e.target.style.backgroundColor != '');{
-                        randomColor = e.target.style.backgroundColor; //Sets randomcolor to match the color that 
-                        if (opacityLevel <=1) {
-                            e.target.style.backgroundColor = randomColor;
-                            opacityLevel += 0.2;
-                            e.target.style.opacity = opacityLevel;
-                        }
-                    }
-                    if (e.target.style.backgroundColor == 'white'){
-                        randomColor = generateRandomColor();
-                        if (opacityLevel <= 1){
-                            e.target.style.backgroundColor = randomColor;
-                            opacityLevel += 0.2;
-                            e.target.style.opacity = opacityLevel;
-                        }
-                    }
+                if (e.target.style.backgroundColor == 'white'){ //If the square has been 'erased'
                     randomColor = generateRandomColor();
-                    if (e.target.style.backgroundColor ==''){
-                        if (opacityLevel <= 1){
-                            e.target.style.backgroundColor = randomColor
-                            opacityLevel += 0.2;
-                            e.target.style.opacity = opacityLevel;
-                }}}
-                else if (rainbowOverwrite == true){ //Rainbow overwrite on
-                    randomColor = generateRandomColor();
-                    if (opacityLevel <= 1) {
-                        e.target.style.backgroundColor = randomColor;
-                        opacityLevel += 0.2;
-                        e.target.stlye.opacity = opacityLevel;
-                    }
-                    else {
-                        e.target.style.backgroundColor = randomColor;
-                    }
-                }}
-            else if (toggleDropper == true){
-                console.log('toggledroppin');
-                divColor = e.target.style.backgroundColor;
-                let rgbArray = parseRGB(divColor); 
-                colorPicker.value = rgbToHex(+rgbArray[0],+rgbArray[1],+rgbArray[2]);
-                // colorDropper.style.backgroundColor = divColor;
-                // console.log('picking color ' + divColor);
-                // console.log(valueToHex(divColor));
-                console.log(divColor);
-                toggleDropper = false;
-                console.log('attempting to convert ' + divColor +' to ' + valueToHex(divColor));
-                toggleColor = true;
-            }    
-            else if (toggleColor == true) {
-                if (opacityLevel <= 1){//Color picker color
-                e.target.style.backgroundColor = divColor;
-                opacityLevel += 0.2;
-                e.target.style.opacity = opacityLevel;
-                } //WORK ON THIS NEXT, I CAN'T GET THE OPACITY TO REGISTER FOR THIS.  
-            };
-            if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
-                e.target.style.backgroundColor = '';
-                e.target.style.opacity = 0.2;  //Erase key
-            }}}};
+                    colorSquareShaded(e,randomColor,opacityLevel);
+                }
+                if (e.target.style.backgroundColor ==''){ 
+                    randomColor = generateRandomColor();//If the square IS blank??? do this?
+                    colorSquareShaded(e,randomColor,opacityLevel);
+                }
+            else if (rainbowOverwrite == true){ //Rainbow overwrite on
+                randomColor = generateRandomColor();
+                    colorSquareShaded(e,randomColor,opacityLevel);
+                }
+                else {
+                    e.target.style.backgroundColor = randomColor;
+                }
+            }}
+        else if (toggleDropper == true){
+            console.log('toggledroppin');
+            divColor = e.target.style.backgroundColor;
+            let rgbArray = parseRGB(divColor); 
+            colorPicker.value = rgbToHex(+rgbArray[0],+rgbArray[1],+rgbArray[2]);
+            // colorDropper.style.backgroundColor = divColor;
+            // console.log('picking color ' + divColor);
+            // console.log(valueToHex(divColor));
+            console.log(divColor);
+            toggleDropper = false;
+            console.log('attempting to convert ' + divColor +' to ' + valueToHex(divColor));
+            toggleColor = true;
+        }    
+        else if (toggleColor == true) {
+            if (opacityLevel <= 1){//Color picker color
+            e.target.style.backgroundColor = divColor;
+            opacityLevel += 0.2;
+            e.target.style.opacity = opacityLevel;
+            } //WORK ON THIS NEXT, I CAN'T GET THE OPACITY TO REGISTER FOR THIS.  
+        };
+        if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
+            e.target.style.backgroundColor = '';
+            e.target.style.opacity = 0.2;  //Erase key
+        }}};
 
 
 
