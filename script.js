@@ -1,12 +1,11 @@
 //Future plans
 //Add a pixel slider
 //Stylize the clear canvas feature by having things fade out
-//Add a shading option! 
 //Color pallet that populates as colors are selected, so the user can swap quickly between colors they have used
+    //Potentially add a (favorites) button that fills up the colors with whatever the user favorites
 //On button press for toggleables, have them switch a 'pressed' style until they are untoggled.
 
 //BUGS
-    //CANNOT GET RAINBOW OVERWRITE OR COLOR OPACITY'S TO CHANGE 
     //Cannot get border to stay unaffected by opacity changes (may not be possible?);
 
 
@@ -21,7 +20,11 @@ function pickColor(e){
     console.log(divColor);
     toggleBlack = false;
     toggleRainbow = false;
+    rainbowOverwrite = false;
     toggleColor = true;
+    blackButton.classList.remove('toggled');
+    rainbowButton.classList.remove('toggled');
+    overWriteButton.classList.remove('toggled');
     // e.target.style.backgroundColor = divColor;
 };
 // let divColor = colorPicker.value;
@@ -35,6 +38,8 @@ blackButton.addEventListener('click',() => {
         console.log('toggleBlack is ' + toggleBlack);
         toggleRainbow = false;
         rainbowButton.classList.remove('toggled');
+        overWriteButton.classList.remove('toggled');
+        rainbowOverwrite = false;
         console.log('toggleRainbow is ' + toggleRainbow);
 
     } else {
@@ -184,21 +189,31 @@ shadingButton.addEventListener('click', () => {
 
 
 let randomColor;
-function colorSquare(e,color){
-    e.target.style.backgroundColor = color;
-}
-function colorSquareShaded(e,color,opacityLevel){
+
+function colorSquare(e,color,opacityLevel){
     if (shadingToggle == true){
         if (opacityLevel < 1){
         e.target.style.backgroundColor = color;
         opacityLevel += 0.2;
         e.target.style.opacity = opacityLevel;
-    }}
+        } else if (opacityLevel >= 1){
+            e.target.style.backgroundColor = color;
+        }
+}
     else {
         e.target.style.backgroundColor = color;
         e.target.style.opacity = 1;
     }
 };
+
+function dropperSelector(e){
+    divColor = e.target.style.backgroundColor;
+    console.log(divColor);
+    let rgbArray = parseRGB(divColor);
+    colorPicker.value = rgbToHex(+rgbArray[0], +rgbArray[1],+rgbArray[2]);
+    toggleDropper = false;
+    toggleColor = true;
+}
 
 function drawColor(e) {
     if (e.type ==='mouseover' && !mouseDown) return;
@@ -208,50 +223,37 @@ function drawColor(e) {
         //Make functions out of each of these options at some point
         let opacityLevel = +e.target.style.opacity;
         if (toggleBlack == true){
-            colorSquareShaded(e,'black',opacityLevel);
+            colorSquare(e,'black',opacityLevel);
         }
-        else if (toggleRainbow == true){
-            // let opacityLevel = +e.target.style.opacity;
+        else if (toggleRainbow == true){ //Toggle Rainbow
             if (rainbowOverwrite == false){ //Rainbow overwrite off
                 if (e.target.style.backgroundColor != '');{ //If the square isn't blank, do this
                     randomColor = e.target.style.backgroundColor; //Sets randomcolor to match the color that 
-                    colorSquareShaded(e,randomColor,opacityLevel);
+                    colorSquare(e,randomColor,opacityLevel);
                 }
                 if (e.target.style.backgroundColor == 'white'){ //If the square has been 'erased'
                     randomColor = generateRandomColor();
-                    colorSquareShaded(e,randomColor,opacityLevel);
+                    colorSquare(e,randomColor,opacityLevel);
                 }
                 if (e.target.style.backgroundColor ==''){ 
                     randomColor = generateRandomColor();//If the square IS blank??? do this?
-                    colorSquareShaded(e,randomColor,opacityLevel);
+                    colorSquare(e,randomColor,opacityLevel);
                 }
-            else if (rainbowOverwrite == true){ //Rainbow overwrite on
+                else if (rainbowOverwrite == true){ //Rainbow overwrite on
                 randomColor = generateRandomColor();
-                    colorSquareShaded(e,randomColor,opacityLevel);
+                    colorSquare(e,randomColor,opacityLevel);
                 }
-                else {
-                    e.target.style.backgroundColor = randomColor;
-                }
-            }}
-        else if (toggleDropper == true){
-            console.log('toggledroppin');
-            divColor = e.target.style.backgroundColor;
-            let rgbArray = parseRGB(divColor); 
-            colorPicker.value = rgbToHex(+rgbArray[0],+rgbArray[1],+rgbArray[2]);
-            // colorDropper.style.backgroundColor = divColor;
-            // console.log('picking color ' + divColor);
-            // console.log(valueToHex(divColor));
-            console.log(divColor);
-            toggleDropper = false;
-            console.log('attempting to convert ' + divColor +' to ' + valueToHex(divColor));
-            toggleColor = true;
+            }
+            if (rainbowOverwrite == true){
+                randomColor = generateRandomColor();
+                colorSquare(e,randomColor,opacityLevel);
+            }
+        }
+        else if (toggleDropper == true){ //Color Copier
+            dropperSelector(e);
         }    
-        else if (toggleColor == true) {
-            if (opacityLevel <= 1){//Color picker color
-            e.target.style.backgroundColor = divColor;
-            opacityLevel += 0.2;
-            e.target.style.opacity = opacityLevel;
-            } //WORK ON THIS NEXT, I CAN'T GET THE OPACITY TO REGISTER FOR THIS.  
+        else if (toggleColor == true) { //Selected Color
+            colorSquare(e,divColor,opacityLevel);
         };
         if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
             e.target.style.backgroundColor = '';
