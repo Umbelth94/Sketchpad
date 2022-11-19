@@ -25,6 +25,8 @@ function pickColor(e){
     blackButton.classList.remove('toggled');
     rainbowButton.classList.remove('toggled');
     overWriteButton.classList.remove('toggled');
+    divColor = hexToRGBA(divColor, 1);
+    console.log('new divColor =' + divColor)
     // e.target.style.backgroundColor = divColor;
 };
 // let divColor = colorPicker.value;
@@ -48,6 +50,22 @@ blackButton.addEventListener('click',() => {
         console.log('toggleBlack is ' + toggleBlack)
     }
 });
+
+//divColor should be updated any time a color is used/changed;
+    //Divcolor should be converted to rgba value
+//Use rgba value to increase the opacity of the background colors instead of the borders
+//ezpz
+function hexToRGBA(hex, alpha){
+    let r = parseInt(hex.slice(1, 3), 16),
+        g = parseInt(hex.slice(3, 5), 16),
+        b = parseInt(hex.slice(5, 7), 16);
+
+    if (alpha) {
+        return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+    } else {
+        return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
+};
 
 
 let mouseDown = false;
@@ -130,15 +148,10 @@ rainbowButton.addEventListener('click',() =>{
 
 function generateRandomColor(){
     randomColor = Math.floor(Math.random()*16777215).toString(16);
-    console.log(randomColor);
+    console.log('#' + randomColor);
     return '#' + randomColor;
 }
 
-//Trying out div color conversion to hex here
-//WORK IT OUT HERE
-//When toggleDropper == true, cursor will select a div's bg in rgb(a,b,c) format.
-//Still need to find a way convert the rgb that is created from selecting the divs and then converting it to hex
-//Temporary work around is to just change the color of the button itself to whatever color is selected.
 function valueToHex(a){
     let hex = a.toString(16);
     return hex.length == 1 ? '0' + hex : hex;
@@ -194,6 +207,7 @@ function colorSquare(e,color,opacityLevel){
     if (shadingToggle == true){
         if (opacityLevel < 1){
         e.target.style.backgroundColor = color;
+        console.log(color);
         opacityLevel += 0.2;
         e.target.style.opacity = opacityLevel;
         } else if (opacityLevel >= 1){
@@ -213,6 +227,7 @@ function dropperSelector(e){
     colorPicker.value = rgbToHex(+rgbArray[0], +rgbArray[1],+rgbArray[2]);
     toggleDropper = false;
     toggleColor = true;
+    //Put divColor 
 }
 
 function drawColor(e) {
