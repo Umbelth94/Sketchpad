@@ -18,6 +18,7 @@ colorPicker.addEventListener('input',pickColor);
 let toggleColor = false;
 function pickColor(e){
     divColor = colorPicker.value;
+    console.log(colorPicker.value);
     console.log(divColor);
     toggleBlack = false;
     toggleRainbow = false;
@@ -149,12 +150,12 @@ rainbowButton.addEventListener('click',() =>{
 
 let randomColor;
 function generateRandomColor(){
-    randomColor = Math.floor(Math.random()*16777215).toString(16);
-    console.log('#' + randomColor);
-    divColor = hexToRGBA(randomColor, 1);
+    randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+    // divColor = hexToRGBA(randomColor, 1);
     console.log('random color converted = ' + randomColor);
     console.log('random color converted = ' + divColor);
-    return '#' + randomColor;
+    divColor = hexToRGBA(randomColor, '1');
+    return divColor;
 }
 
 function valueToHex(a){
@@ -227,7 +228,7 @@ function colorSquare(e,color,opacity){
         color = replaceRGBAOpacity(divColor, opacity);
         console.log(color);
         e.target.style.backgroundColor = color;
-        // divColor = color;
+        divColor = color;
         console.log(color);
         console.log(opacity);
         } 
@@ -282,25 +283,25 @@ function drawColor(e) {
         else if (toggleRainbow == true){ //Toggle Rainbow
             if (rainbowOverwrite == false){ //Rainbow overwrite off
                 if (e.target.style.backgroundColor != '');{ //If the square isn't blank, do this
-                    randomColor = e.target.style.backgroundColor; //Sets randomcolor to match the color that 
-                    colorSquare(e,randomColor,opacity);
+                    divColor = e.target.style.backgroundColor; //Sets randomcolor to match the color that 
+                    colorSquare(e,divColor,opacity);
                 }
                 if (e.target.style.backgroundColor == 'white'){ //If the square has been 'erased'
-                    randomColor = generateRandomColor();
-                    colorSquare(e,randomColor,opacity);
+                    divColor = generateRandomColor();
+                    colorSquare(e,divColor,opacity);
                 }
                 if (e.target.style.backgroundColor ==''){ 
-                    randomColor = generateRandomColor();//If the square IS blank??? do this?
-                    colorSquare(e,randomColor,opacity);
+                    divColor = generateRandomColor();//If the square IS blank??? do this?
+                    colorSquare(e,divColor,opacity);
                 }
                 else if (rainbowOverwrite == true){ //Rainbow overwrite on
-                randomColor = generateRandomColor();
-                colorSquare(e,randomColor,opacity);
+                divColor = generateRandomColor();
+                colorSquare(e,divColor,opacity);
                 }
             }
             if (rainbowOverwrite == true){
-                randomColor = generateRandomColor();
-                colorSquare(e,randomColor,opacity);
+                divColor = generateRandomColor();
+                colorSquare(e,divColor,opacity);
             }
         }
         else if (toggleDropper == true){ //Color Copier
