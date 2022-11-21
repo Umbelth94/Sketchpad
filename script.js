@@ -228,12 +228,12 @@ function colorSquare(e,color,opacity){
         color = replaceRGBAOpacity(divColor, opacity);
         console.log(color);
         e.target.style.backgroundColor = color;
-        divColor = color;
+        // divColor = color;
         console.log(color);
         console.log(opacity);
         } 
         else if (opacity >= 1){
-            e.target.style.backgroundColor = divColor;
+            e.target.style.backgroundColor = color;
         }}
     else {
         e.target.style.backgroundColor = divColor;
