@@ -12,7 +12,8 @@
 const padContainer = document.getElementById('padcontainer');
 
 const colorPicker = document.getElementById('color-picker');
-let divColor;
+// let opacity = '0.2';
+let divColor = 'rgba(0,0,0,1)'; //starts divColor as black with Opacity '1'
 colorPicker.addEventListener('input',pickColor);
 let toggleColor = false;
 function pickColor(e){
@@ -25,8 +26,7 @@ function pickColor(e){
     blackButton.classList.remove('toggled');
     rainbowButton.classList.remove('toggled');
     overWriteButton.classList.remove('toggled');
-    divColor = hexToRGBA(divColor, 1);
-    console.log('new divColor =' + divColor)
+    divColor = hexToRGBA(divColor, '1');
     // e.target.style.backgroundColor = divColor;
 };
 // let divColor = colorPicker.value;
@@ -43,6 +43,7 @@ blackButton.addEventListener('click',() => {
         overWriteButton.classList.remove('toggled');
         rainbowOverwrite = false;
         console.log('toggleRainbow is ' + toggleRainbow);
+        divColor = 'rgba(0,0,0,' +opacity + ')';
 
     } else {
         blackButton.classList.remove('toggled');
@@ -146,9 +147,13 @@ rainbowButton.addEventListener('click',() =>{
         return;
     }});
 
+let randomColor;
 function generateRandomColor(){
     randomColor = Math.floor(Math.random()*16777215).toString(16);
     console.log('#' + randomColor);
+    divColor = hexToRGBA(randomColor, 1);
+    console.log('random color converted = ' + randomColor);
+    console.log('random color converted = ' + divColor);
     return '#' + randomColor;
 }
 
@@ -172,6 +177,17 @@ function parseRGB(string){
     console.log(rgbValues);
     return rgbValues;    //Take out all the other junk so that I'm left with just the 3 numbers
 };
+
+function replaceRGBAOpacity(string,opacity){
+    let rgbValues = string.split(',');
+    rgbValues[3] = rgbValues[3] = (opacity.toString()+ ')');
+    rgbValues = rgbValues.join(',');
+    console.log('replaced opacity = ' + rgbValues);
+    return rgbValues;
+}
+
+
+
 let toggleDropper = false;
 const colorDropper = document.getElementById('color-dropper');
 colorDropper.addEventListener('click',() => {
@@ -192,6 +208,7 @@ const shadingButton = document.getElementById('shading');
 shadingButton.addEventListener('click', () => {
     if (shadingToggle == false){
         shadingToggle = true;
+        // divColor = replaceRGBAOpacity(divColor,'0.2');
         shadingButton.classList.add('toggled');
     } else {
         shadingToggle = false;
@@ -199,26 +216,27 @@ shadingButton.addEventListener('click', () => {
     }
     });
 
-
-
-let randomColor;
-
-function colorSquare(e,color,opacityLevel){
+//Redo this function to reproduce the effects before we added string manipulation
+function colorSquare(e,color,opacity){
     if (shadingToggle == true){
-        if (opacityLevel < 1){
-        e.target.style.backgroundColor = color;
+        // let opacity = getOpacity(e.target.style.backgroundColor);
+        if (opacity < 1){
+        // color = divColor;
+        opacity += 0.2;
+        opacity = opacity.toString();
+        color = replaceRGBAOpacity(divColor, opacity);
         console.log(color);
-        opacityLevel += 0.2;
-        e.target.style.opacity = opacityLevel;
-        } else if (opacityLevel >= 1){
-            e.target.style.backgroundColor = color;
-        }
-}
-    else {
         e.target.style.backgroundColor = color;
-        e.target.style.opacity = 1;
-    }
-};
+        // divColor = color;
+        console.log(color);
+        console.log(opacity);
+        } 
+        else if (opacity >= 1){
+            e.target.style.backgroundColor = divColor;
+        }}
+    else {
+        e.target.style.backgroundColor = divColor;
+    }};
 
 function dropperSelector(e){
     divColor = e.target.style.backgroundColor;
@@ -229,46 +247,69 @@ function dropperSelector(e){
     toggleColor = true;
     //Put divColor 
 }
+function getOpacity(bgColor){
+    if (shadingToggle == true){
+        if (bgColor == '' || bgColor == undefined){
+            console.log('undefined');
+            return 0.2;}
+        else { 
+            let a = bgColor.split(',');
+            if (a[3] != undefined){
+            a[3] = a[3].replace(' ','');
+            a[3] = a[3].replace(')','');
+            return +a[3];
+            }
+        else {
+            return 1;
+        }
+        }}
+    else {
+        return 1;
+    }
+};
 
 function drawColor(e) {
-    if (e.type ==='mouseover' && !mouseDown) return;
-    mouseDown = true;
-    if ((e.type ==='mouseover' && mouseDown) || (mouseDown)){
-        //Start Shaded versions here 
-        //Make functions out of each of these options at some point
-        let opacityLevel = +e.target.style.opacity;
+    // if (e.target.style.backgroundColor != 'undefined'){
+        // } //Make sure that every bg color has opacity
+        if (e.type ==='mouseover' && !mouseDown) return;
+        mouseDown = true;
+        if ((e.type ==='mouseover' && mouseDown) || (mouseDown)){
+        let opacity = getOpacity(e.target.style.backgroundColor);
+        // console.log(newOpacity);
         if (toggleBlack == true){
-            colorSquare(e,'black',opacityLevel);
+            colorSquare(e,divColor,opacity);
         }
         else if (toggleRainbow == true){ //Toggle Rainbow
             if (rainbowOverwrite == false){ //Rainbow overwrite off
                 if (e.target.style.backgroundColor != '');{ //If the square isn't blank, do this
                     randomColor = e.target.style.backgroundColor; //Sets randomcolor to match the color that 
-                    colorSquare(e,randomColor,opacityLevel);
+                    colorSquare(e,randomColor,opacity);
                 }
                 if (e.target.style.backgroundColor == 'white'){ //If the square has been 'erased'
                     randomColor = generateRandomColor();
-                    colorSquare(e,randomColor,opacityLevel);
+                    colorSquare(e,randomColor,opacity);
                 }
                 if (e.target.style.backgroundColor ==''){ 
                     randomColor = generateRandomColor();//If the square IS blank??? do this?
-                    colorSquare(e,randomColor,opacityLevel);
+                    colorSquare(e,randomColor,opacity);
                 }
                 else if (rainbowOverwrite == true){ //Rainbow overwrite on
                 randomColor = generateRandomColor();
-                    colorSquare(e,randomColor,opacityLevel);
+                colorSquare(e,randomColor,opacity);
                 }
             }
             if (rainbowOverwrite == true){
                 randomColor = generateRandomColor();
-                colorSquare(e,randomColor,opacityLevel);
+                colorSquare(e,randomColor,opacity);
             }
         }
         else if (toggleDropper == true){ //Color Copier
             dropperSelector(e);
         }    
-        else if (toggleColor == true) { //Selected Color
-            colorSquare(e,divColor,opacityLevel);
+        else if (toggleColor == true) { 
+            console.log('color mode');
+            console.log(divColor);//Selected Color
+            colorSquare(e,divColor,opacity);
         };
         if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
             e.target.style.backgroundColor = '';
