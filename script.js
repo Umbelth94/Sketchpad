@@ -6,7 +6,7 @@
 //On button press for toggleables, have them switch a 'pressed' style until they are untoggled.
 
 //BUGS
-    //Cannot get border to stay unaffected by opacity changes (may not be possible?);
+    //Erasing changes overall Opacity forever I think 
 
 
 const padContainer = document.getElementById('padcontainer');
@@ -314,7 +314,7 @@ function drawColor(e) {
         };
         if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
             e.target.style.backgroundColor = '';
-            e.target.style.opacity = 0.2;  //Erase key
+           //Erase key
         }}};
 
 
