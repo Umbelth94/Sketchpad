@@ -40,17 +40,33 @@
     display:flex;
     justify-content:space-evenly;
     align-items:center;
+    border:2px solid black;
+    border-radius:5px;
 }
 
 .btnlabel{
-    margin:10px;
+    margin:05px;
     font-size:x-large;
-    border:2px solid black;
+    /* border:2px solid black; */
 }
 
 .btncolor{
-    margin:20px;
-    border:2px solid black;
+    margin-left:20px;
+    margin-right:10px;
+    padding:0px;
+    /* border:2px solid black; */
+    /* width:30px;
+    height:20px; */
+}
+.btn{
+    border:1px solid black;
+    width:48px; /*Same width/height as the color button input (on Chrome)*/
+    height:25px;
+    padding-left:10px;
+    padding-right:20px;
+    padding-top:1px;
+    padding-bottom:1px;
+    border-radius:1px;
 }
 /* #settingsbuttons{
     display:flex;
