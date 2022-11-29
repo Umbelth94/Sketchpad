@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+     @import url('https://fonts.cdnfonts.com/css/common-pixel');
+    </style>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edg e">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src=script.js defer></script>
     <title>Drawpad</title>
 </head>
 <body>
-    <input type="color" id="color-picker" name="pickcolor" value="#ff0000">
-    <button id="erase">Clear Canvas</button>
-    <button id="reset">Create New Grid</button> 
-    <button id="black-ink" class="toggleable toggled">Black Ink</button>
-    <button id="hide-borders">Hide Pixel Borders</button>
-    <button id="rainbow-ink" class="toggleable">Rainbow Ink</button>
-    <button id="rainbow-overwrite" class="toggleable">Rainbow overwrite</button>
-    <button id="color-dropper" class="toggleable">Copy Color </button>
-    <button id="shading" class="toggleable">Shading </button>
-    <div id="padcontainer">
-        <!-- Grid gets populated via Javascript here-->
+    <div id="titlecontainer">
+        <h1 id="title">Place-A-Dot</h1>
+    </div>
+    <div id="everythingelsecontainer">
+        <div id="colorbuttons">
+            <div class="btnsquare">
+                <div class="btnlabel">Select Color</div>
+                <input type="color" id="color-picker" name="pickcolor" value="#ff0000" class="btncolor">
+            </div>
+            <button id="black-ink" class="toggleable toggled">Black Ink</button>
+            <button id="rainbow-ink" class="toggleable">Rainbow Ink</button>
+            <button id="rainbow-overwrite" class="toggleable">Rainbow overwrite</button>
+            <button id="color-dropper" class="toggleable">Copy Color </button>
+        </div>
+        <div id="padcontainer">
+            <!-- Grid gets populated via Javascript here-->
+        </div>
+        <div id="settingsbuttons">
+            <button id="erase">Clear Canvas</button>
+            <button id="reset">Create New Grid</button> 
+            <button id="hide-borders">Hide Pixel Borders</button>
+            <button id="shading" class="toggleable">Shading </button>
+        </div>
     </div>
     <h2>Hold Shift + Left click to erase pixels</h2>
        

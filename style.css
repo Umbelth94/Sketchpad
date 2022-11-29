@@ -1,14 +1,72 @@
 *{
+    white-space:nowrap;
     box-sizing:border-box;
 }
 
+#titlecontainer,
+#everythingelsecontainer{
+    margin-left:7%;
+    margin-right:7%;
+    margin-top:25px;
+    border:15px double rgb(17, 243, 126);
+    border-radius:3%;
+}
+#title{
+    font-family:'Common Pixel', sans-serif;
+    font-size:90px;
+    text-align:center;
+}
+
+#everythingelsecontainer{
+    display:flex;
+}
+
+#colorbuttons,
+#settingsbuttons{
+    /* white-space:nowrap; */
+    flex-wrap:nowrap;
+    border:2px solid black;
+    border-radius:10px;
+    margin:20px;
+    display:flex;
+    flex-grow:1;
+    flex-direction:column;
+    justify-content:space-evenly;
+    align-items:center;
+    width:300px;
+}
+
+.btnsquare{
+    display:flex;
+    justify-content:space-evenly;
+    align-items:center;
+}
+
+.btnlabel{
+    margin:10px;
+    font-size:x-large;
+    border:2px solid black;
+}
+
+.btncolor{
+    margin:20px;
+    border:2px solid black;
+}
+/* #settingsbuttons{
+    display:flex;
+    flex-direction:column;
+} */
+
 #padcontainer{
+    margin-left:auto;
+    margin-right:auto;
     display:flex;
     flex-direction:column;
     flex-wrap:wrap;
     border: 2px solid black;
-    width:980px;
-    height:980px;
+    width:500px;
+    height:500px;
+    flex-shrink:0;
 }
 
 .row{
@@ -21,7 +79,7 @@
 }
 
 .border{
-    border:1px dotted rgba(0,0,0,1);
+    border:1px solid rgba(0,0,0,0.5);
 }
 
 .darkBorder{

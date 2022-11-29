@@ -1,9 +1,11 @@
 //Future plans
-//Add a pixel slider
-//Stylize the clear canvas feature by having things fade out
-//Color pallet that populates as colors are selected, so the user can swap quickly between colors they have used
-    //Potentially add a (favorites) button that fills up the colors with whatever the user favorites
-//On button press for toggleables, have them switch a 'pressed' style until they are untoggled.
+    //Add toggleable color themes?
+    //Add 3 Canvas Size Options 
+    //Add a pixel slider
+    //Stylize the clear canvas feature by having things fade out
+    //Color pallet that populates as colors are selected, so the user can swap quickly between colors they have used
+        //Potentially add a (favorites) button that fills up the colors with whatever the user favorites
+    //On button press for toggleables, have them switch a 'pressed' style until they are untoggled.
 
 //BUGS
     //Erasing changes overall Opacity forever I think 
