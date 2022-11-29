@@ -223,7 +223,7 @@ function colorSquare(e,color,opacity){
         // let opacity = getOpacity(e.target.style.backgroundColor);
         if (opacity < 1){
         // color = divColor;
-        opacity += 0.2;
+        opacity += 0.1;
         opacity = opacity.toString();
         color = replaceRGBAOpacity(divColor, opacity);
         console.log(color);
