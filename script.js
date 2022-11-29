@@ -39,6 +39,7 @@ const blackButton = document.getElementById('black-ink');
 blackButton.addEventListener('click',() => {
     if(toggleBlack == false){
         toggleBlack = true;
+        toggleColor = false;
         blackButton.classList.add('toggled')
         console.log('toggleBlack is ' + toggleBlack);
         toggleRainbow = false;
@@ -46,7 +47,7 @@ blackButton.addEventListener('click',() => {
         overWriteButton.classList.remove('toggled');
         rainbowOverwrite = false;
         console.log('toggleRainbow is ' + toggleRainbow);
-        divColor = 'rgba(0,0,0,' +opacity + ')';
+        divColor = 'rgba(0,0,0,1';
 
     } else {
         blackButton.classList.remove('toggled');
