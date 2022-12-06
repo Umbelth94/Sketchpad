@@ -26,6 +26,7 @@ function pickColor(e){
     toggleRainbow = false;
     rainbowOverwrite = false;
     toggleColor = true;
+    colorPicker.classList.add('btncolortoggled');
     blackButton.classList.remove('toggled');
     rainbowButton.classList.remove('toggled');
     overWriteButton.classList.remove('toggled');
@@ -45,6 +46,7 @@ blackButton.addEventListener('click',() => {
         toggleRainbow = false;
         rainbowButton.classList.remove('toggled');
         overWriteButton.classList.remove('toggled');
+        colorPicker.classList.remove('btncolortoggled');
         rainbowOverwrite = false;
         console.log('toggleRainbow is ' + toggleRainbow);
         divColor = 'rgba(0,0,0,1';
@@ -143,6 +145,7 @@ rainbowButton.addEventListener('click',() =>{
         console.log('toggle rainbow = ' + toggleRainbow);
         toggleBlack = false;
         blackButton.classList.remove('toggled');
+        colorPicker.classList.remove('btncolortoggled');
         console.log('isColorBlack is ' + toggleBlack);
         toggleColor = false;
     } else {
@@ -202,9 +205,11 @@ colorDropper.addEventListener('click',() => {
         toggleRainbow = false;
         rainbowButton.classList.remove('toggled');
         overWriteButton.classList.remove('toggled');
+        colorDropper.classList.add('toggled');
         toggleColor = true;
     } else {
         toggleDropper = false;
+        colorDropper.classList.remove('toggled');
     }});
 
 let shadingToggle = false;
@@ -278,6 +283,10 @@ function drawColor(e) {
         if (e.type ==='mouseover' && !mouseDown) return;
         mouseDown = true;
         if ((e.type ==='mouseover' && mouseDown) || (mouseDown)){
+        // if (toggleDropper == true){
+        //     toggleDropper = false;
+        //     colorDropper.classList.remove('toggled');
+        // }
         let opacity = getOpacity(e.target.style.backgroundColor);
         // console.log(newOpacity);
         if (toggleBlack == true){
@@ -309,8 +318,11 @@ function drawColor(e) {
         }
         else if (toggleDropper == true){ //Color Copier
             dropperSelector(e);
+            colorDropper.classList.remove('toggled');
+            colorPicker.classList.add('btncolortoggled');
         }    
         else if (toggleColor == true) { 
+
             console.log('color mode');
             console.log(divColor);//Selected Color
             colorSquare(e,divColor,opacity);

@@ -17,17 +17,34 @@
     </div>
     <div id="everythingelsecontainer">
         <div id="colorbuttons">
-            <div class="btnsquare">
+            <div class="btnsquare"> <!--Color Selector-->
                 <div class="btnlabel">Select Color</div>
-                <input type="color" id="color-picker" name="pickcolor" value="#ff0000" class="btncolor">
+                <input type="color" id="color-picker" name="pickcolor" value="#ff0000" class="btcncolor" >
+            </div>
+            <div class="btnsquare"> <!--Black Ink Button-->
+                <div class="btnlabel">Black Ink</div>
+                <div class="buttoncnt">
+                 <button id="black-ink" class="toggleable toggled btn"></button>
+                 </div>
             </div>
             <div class="btnsquare">
-                <div class="btnlabel">Black Ink</div>
-            <button id="black-ink" class="toggleable toggled btn"></button>
+                <div class="btnlabel">Rainbow Ink</div>
+                <div class="buttoncnt">
+                    <button id="rainbow-ink" class="toggleable btn"></button>
+                </div>
             </div>
-            <button id="rainbow-ink" class="toggleable">Rainbow Ink</button>
-            <button id="rainbow-overwrite" class="toggleable">Rainbow overwrite</button>
-            <button id="color-dropper" class="toggleable">Copy Color </button>
+            <div class="btnsquare">
+                <div class="btnlabel">Rainbow Overwrite</div>
+                <div class="buttoncnt">
+                    <button id="rainbow-overwrite" class="toggleable btn"></button>
+                </div>
+            </div>
+            <div class="btnsquare">
+                <div class="btnlabel">Copy Color</div>
+                <div class="buttoncnt">
+                    <button id="color-dropper" class="toggleable btn"></button>
+                </div>
+            </div>
         </div>
         <div id="padcontainer">
             <!-- Grid gets populated via Javascript here-->
