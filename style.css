@@ -1,6 +1,16 @@
 *{
     white-space:nowrap;
     box-sizing:border-box;
+    color: rgb(17, 243, 126);
+    font-family:'Common Pixel',sans-serif;
+}
+
+body{
+    background-color:black;
+}
+
+h2{
+    text-align:center;
 }
 
 #titlecontainer,
@@ -23,30 +33,35 @@
 
 #colorbuttons,
 #settingsbuttons{
+    background-color:rgb(1, 65, 32);
     /* white-space:nowrap; */
     flex-wrap:nowrap;
-    border:2px solid black;
+    border:2px solid rgb(17, 243, 126);
     border-radius:10px;
-    margin:20px;
     display:flex;
+    margin:40px;
     flex-grow:1;
     flex-direction:column;
     justify-content:space-evenly;
-    align-items:center;
+    align-items:end;
     width:300px;
 }
 
 .btnsquare{
+    /* border:2px solid rgb(17, 243, 126); */
+    padding-left:10px;
+    padding-right:10px;
+    margin-right:15px;
+    margin-left:15px;
     display:flex;
     justify-content:space-evenly;
     align-items:center;
-    border:2px solid black;
     border-radius:5px;
 }
 
 .btnlabel{
     margin:05px;
-    font-size:x-large;
+    font-size:large;
     /* border:2px solid black; */
 }
 
@@ -70,7 +85,7 @@
 .buttoncnt{
     width:48px;
     height:26px;
-    border:1px solid black;
+    border:1px solid gray;
     border-radius:3px;
 } 
 
@@ -91,14 +106,15 @@
 } */
 
 #padcontainer{
+    background-color:white;
     margin-left:auto;
     margin-right:auto;
     display:flex;
     flex-direction:column;
     flex-wrap:wrap;
-    border: 2px solid black;
-    width:500px;
-    height:500px;
+    border: 2px solid rgb(17, 243, 126);;
+    width:600px;
+    height:600px;
     flex-shrink:0;
 }
 
