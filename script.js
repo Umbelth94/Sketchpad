@@ -6,6 +6,11 @@
     //Color pallet that populates as colors are selected, so the user can swap quickly between colors they have used
         //Potentially add a (favorites) button that fills up the colors with whatever the user favorites
     //Add a feature to change the background color
+    
+
+//Bugs
+    //Make the shading feature overwrite colors that are colored in without being fully shaded 
+        //Maybe add a check that checks to see if the color is different than the one selected
 
 
 

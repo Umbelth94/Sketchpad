@@ -24,7 +24,8 @@ h2{
 }
 
 #titlecontainer,
-#everythingelsecontainer{
+#everythingelsecontainer,
+#saved-colors-container{
     margin-left:7%;
     margin-right:7%;
     margin-top:25px;
