@@ -7,6 +7,10 @@
         //Potentially add a (favorites) button that fills up the colors with whatever the user favorites
     //Add a feature to change the background color
 
+//Known bugs
+    //Copying Color does not allow user to draw when shading is selected.  
+        //Somewhere in the copycolor function, it parses rgb instead of rgba, thus getting rid of alpha value
+
 
 const padContainer = document.getElementById('padcontainer');
 
@@ -46,7 +50,7 @@ blackButton.addEventListener('click',() => {
         colorPicker.classList.remove('btncolortoggled');
         rainbowOverwrite = false;
         console.log('toggleRainbow is ' + toggleRainbow);
-        divColor = 'rgba(0,0,0,1';
+        divColor = 'rgba(0,0,0,1)';
 
     } else {
         blackButton.classList.remove('toggled');
@@ -172,13 +176,14 @@ function rgbToHex(r, g, b){
 
 //Grab RGB values from the divColor (for the color picker);
 function parseRGB(string){
+    console.log('running parseRGB on ' + string);
     let rgbValues = string.split(',');
     console.log(rgbValues);
     rgbValues[0] = rgbValues[0].replace('rgb(','');
     rgbValues[1] = rgbValues[1].replace(' ','');
     rgbValues[2] = rgbValues[2].replace(' ','');
     rgbValues[2] = rgbValues[2].replace(')','');
-    console.log(rgbValues);
+    console.log('parsed rgbValues = ' + rgbValues);
     return rgbValues;    //Take out all the other junk so that I'm left with just the 3 numbers
 };
 
@@ -187,6 +192,14 @@ function replaceRGBAOpacity(string,opacity){
     rgbValues[3] = rgbValues[3] = (opacity.toString()+ ')');
     rgbValues = rgbValues.join(',');
     console.log('replaced opacity = ' + rgbValues);
+    return rgbValues;
+}
+
+function replaceRGBADropperOpacity(string,opacity){
+    let rgbValues = string.split(',');
+    rgbValues[2] = rgbValues[2].replace(')', '');
+    rgbValues[3] = rgbValues[3] = (opacity.toString()+ ')');
+    console.log('replaced opacityDropper = ' + rgbValues);
     return rgbValues;
 }
 
@@ -230,12 +243,21 @@ function colorSquare(e,color,opacity){
         // color = divColor;
         opacity += 0.1;
         opacity = opacity.toString();
-        color = replaceRGBAOpacity(divColor, opacity);
-        console.log(color);
-        e.target.style.backgroundColor = color;
-        // divColor = color;
-        console.log(color);
-        console.log(opacity);
+        if (toggleRainbow == true){
+            color = replaceRGBAOpacity(divColor,opacity);
+            console.log('selected color = ' + color);
+            e.target.style.backgroundColor = color;
+            // divColor = color;
+            console.log(color);
+            console.log(opacity);
+        } else {
+            color = replaceRGBADropperOpacity(divColor, opacity);
+            console.log('selected color = ' + color);
+            e.target.style.backgroundColor = color;
+            // divColor = color;
+            console.log(color);
+            console.log(opacity);
+        }
         } 
         else if (opacity >= 1){
             e.target.style.backgroundColor = color;
@@ -244,16 +266,26 @@ function colorSquare(e,color,opacity){
         e.target.style.backgroundColor = divColor;
     }};
 
-function dropperSelector(e){
+
+function dropperSelector(e, opacity){
+    e.target.style.backgroundColor = replaceRGBADropperOpacity(e.target.style.backgroundColor, opacity);
+    console.log('background color is = ' + e.target.style.backgroundColor);
     divColor = e.target.style.backgroundColor;
-    console.log(divColor);
-    let rgbArray = parseRGB(divColor);
-    colorPicker.value = rgbToHex(+rgbArray[0], +rgbArray[1],+rgbArray[2]);
+    console.log('dropper selector divColor = ' + divColor);
+    // divColor = replaceRGBAOpacity(divColor,opacity);
+    // console.log(e.target.style.backgroundColor);
     toggleDropper = false;
     toggleColor = true;
+    // divColor = e.target.style.backgroundColor;
+    // console.log('colordropper selecting '+divColor);
+    // let rgbArray = parseRGB(divColor);
+    // colorPicker.value = rgbToHex(+rgbArray[0], +rgbArray[1],+rgbArray[2]);
+    // toggleDropper = false;
+    // toggleColor = true;
     //Put divColor 
 }
 function getOpacity(bgColor){
+    console.log('running getOpacity on' + bgColor);
     if (shadingToggle == true){
         if (bgColor == '' || bgColor == undefined){
             console.log('undefined');
@@ -263,6 +295,7 @@ function getOpacity(bgColor){
             if (a[3] != undefined){
             a[3] = a[3].replace(' ','');
             a[3] = a[3].replace(')','');
+            console.log ('returned opacity = ' + +a[3]);
             return +a[3];
             }
         else {
@@ -285,6 +318,7 @@ function drawColor(e) {
         //     colorDropper.classList.remove('toggled');
         // }
         let opacity = getOpacity(e.target.style.backgroundColor);
+        console.log('draw color opacity = ' + opacity);
         // console.log(newOpacity);
         if (toggleBlack == true){
             colorSquare(e,divColor,opacity);
@@ -314,7 +348,7 @@ function drawColor(e) {
             }
         }
         else if (toggleDropper == true){ //Color Copier
-            dropperSelector(e);
+            dropperSelector(e,opacity);
             colorDropper.classList.remove('toggled');
             colorPicker.classList.add('btncolortoggled');
         }    
