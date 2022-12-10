@@ -7,9 +7,7 @@
         //Potentially add a (favorites) button that fills up the colors with whatever the user favorites
     //Add a feature to change the background color
 
-//Known bugs
-    //Copying Color does not allow user to draw when shading is selected.  
-        //Somewhere in the copycolor function, it parses rgb instead of rgba, thus getting rid of alpha value
+
 
 
 const padContainer = document.getElementById('padcontainer');
