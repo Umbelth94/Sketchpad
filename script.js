@@ -274,12 +274,12 @@ function dropperSelector(e, opacity){
     console.log('dropper selector divColor = ' + divColor);
     // divColor = replaceRGBAOpacity(divColor,opacity);
     // console.log(e.target.style.backgroundColor);
+    let rgbArray = parseRGB(divColor);
+    colorPicker.value = rgbToHex(+rgbArray[0], +rgbArray[1],+rgbArray[2]);
     toggleDropper = false;
     toggleColor = true;
     // divColor = e.target.style.backgroundColor;
     // console.log('colordropper selecting '+divColor);
-    // let rgbArray = parseRGB(divColor);
-    // colorPicker.value = rgbToHex(+rgbArray[0], +rgbArray[1],+rgbArray[2]);
     // toggleDropper = false;
     // toggleColor = true;
     //Put divColor 
