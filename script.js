@@ -6,7 +6,7 @@
     //Color pallet that populates as colors are selected, so the user can swap quickly between colors they have used
         //Potentially add a (favorites) button that fills up the colors with whatever the user favorites
     //Add a feature to change the background color
-    
+
 
 //Bugs
     //Make the shading feature overwrite colors that are colored in without being fully shaded 
@@ -419,6 +419,33 @@ clearCanvas.addEventListener('click', ()=>{
         deleteGrid();
         populateGrid(gridSize);
     }});
+
+//Create a button that saves the current divColor (ensure that it stays RGBA)
+    //Create a new div with the divColor that populates in the saved-colors-container.
+        //Give those divs a classname to give them the option to be styled
+        //Append those divs to the saved-colors-container
+        //Create listeners on click for those to overwrite/change the color swatch to their color.
+const savedColorsContainer = document.getElementById('saved-colors-container');
+const saveColorButton = document.getElementById('save-color');
+saveColorButton.addEventListener('click', ()=>{
+    let colorBox = document.createElement('div');
+    colorBox.classList.add('color-box');
+    colorBox.style.backgroundColor = divColor;
+    colorBox.addEventListener('click',(e)=>{
+        console.log('changing color back to ' + e.target.style.backgroundColor);
+        divColor = e.target.style.backgroundColor;
+        let rgbArray = parseRGB(divColor);
+        colorPicker.value = rgbToHex(+rgbArray[0], +rgbArray[1],+rgbArray[2]);
+        toggleColor = true;
+        colorPicker.classList.add('btncolortoggled');
+        toggleBlack = false;
+        blackButton.classList.remove('toggled');
+        toggleRainbow = false;
+        rainbowButton.classList.remove('toggled');
+    })
+    savedColorsContainer.appendChild(colorBox);
+}); 
+
                     
                     
 
