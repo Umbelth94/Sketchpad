@@ -25,7 +25,7 @@ h2{
 
 #titlecontainer,
 #everythingelsecontainer,
-#saved-colors-container{
+#bottom-container{
     margin-left:7%;
     margin-right:7%;
     margin-top:25px;
@@ -76,18 +76,30 @@ h2{
     /* border:2px solid black; */
 }
 
+
 #saved-colors-container{
     display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
 }
+
+
+.dimension-count{
+    text-align:center;
+    font-size:small;
+}
+
 .color-box{
     width:50px;
     height:50px;
     border: 2px solid white;
+    margin:5px;
 }
 
 /*UW-Medic Clinic
 /*608-265-4972
 /*Free clinic, apptments available on saturdays*/
+
 
 .btncolor{
     margin-left:20px;
@@ -119,6 +131,16 @@ h2{
     padding-right:20px; */
     border-radius:1px;
     background-color:rgba(255, 255, 255, 0);
+}
+
+.dimension-container{
+    display:flex;
+    align-items:center;
+    text-align:center;
+    width:62px;
+    height:26px;
+    border:1px solid gray;
+    border-radius:3px;
 }
 /* #settingsbuttons{
     display:flex;

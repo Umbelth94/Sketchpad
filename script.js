@@ -87,6 +87,16 @@ let gridSize = 16;
 let borderToggle = true;
 populateGrid(gridSize); //Start with a default grid size of 16x16
 
+const gridSlider = document.getElementById('resolutionRange');
+const gridCounter = document.getElementById('dimension-count');
+gridCounter.innerHTML = (gridSlider.value + 'x' + gridSlider.value);
+let dimension = gridSlider.value;
+gridSlider.oninput = () => {
+    deleteGrid();
+    dimension = gridSlider.value;
+    populateGrid(dimension);
+    gridCounter.innerHTML = (gridSlider.value + 'x' + gridSlider.value);
+}
 
 function populateGrid(dimension){
     for (let i = 0; i< dimension; i++){
@@ -376,10 +386,11 @@ function deleteGrid(){
     }};
 
 
+
     
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', ()=> {
-    let dimension = checkIfValidNumber('How many squared pixels do you want your canvas?');
+    // let dimension = checkIfValidNumber('How many squared pixels do you want your canvas?');
     if (dimension != null){
         if (dimension > 100){
             alert('You must pick a number that is not higher than 100');

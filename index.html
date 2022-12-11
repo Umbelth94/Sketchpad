@@ -62,6 +62,12 @@
                     <button id="erase" class = "btn"></button>
                 </div>
             </div>
+            <div class="btnsquare">
+                <input type="range" min="10" max="64" value="16" class="slider btnlabel" id="resolutionRange">
+                <div class="dimension-container">
+                    <span id="dimension-count"></span>
+                </div>
+            </div>
             <div class="btnsquare"> <!--Resize Canvas Button-->
                 <div class="btnlabel">Resize Canvas</div>    
                 <div class="buttoncnt">
@@ -82,8 +88,12 @@
             </div>
         </div>
     </div>
-    <div id="saved-colors-container">
-        <h2>Saved Colors</h2>
+    <div id="bottom-container">
+        <div id="saved-colors-title">
+        <h2 class="saved-colors"><u>Saved Colors</u></h2>
+        </div>
+        <div id="saved-colors-container">
+        </div>
     </div>
     <h2>Hold Shift + Left click to erase pixels</h2>
        
