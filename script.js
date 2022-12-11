@@ -114,7 +114,7 @@ function populateGrid(dimension){
                 square.addEventListener('mousedown', drawColor);
                 }}};
 
-
+//Hide Borders Button
 const squares = document.getElementsByClassName('square');
 const borderButton = document.getElementById('hide-borders');
 borderButton.addEventListener('click',() => {
@@ -149,7 +149,6 @@ overWriteButton.addEventListener('click',() =>{
         alert('You must turn on rainbow ink to use this feature');
     }
 })
-// let randomColor = Math.floor(Math.random()*16777215).toString(16);
 const rainbowButton = document.getElementById('rainbow-ink');
 let toggleRainbow = false;
 rainbowButton.addEventListener('click',() =>{
@@ -171,7 +170,6 @@ rainbowButton.addEventListener('click',() =>{
 let randomColor;
 function generateRandomColor(){
     randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-    // divColor = hexToRGBA(randomColor, 1);
     console.log('random color converted = ' + randomColor);
     console.log('random color converted = ' + divColor);
     divColor = hexToRGBA(randomColor, '1');
@@ -240,7 +238,6 @@ const shadingButton = document.getElementById('shading');
 shadingButton.addEventListener('click', () => {
     if (shadingToggle == false){
         shadingToggle = true;
-        // divColor = replaceRGBAOpacity(divColor,'0.2');
         shadingButton.classList.add('toggled');
     } else {
         shadingToggle = false;
@@ -248,30 +245,19 @@ shadingButton.addEventListener('click', () => {
     }
     });
 
-//Redo this function to reproduce the effects before we added string manipulation
+
 function colorSquare(e,color,opacity){
     if (shadingToggle == true){
-        // let opacity = getOpacity(e.target.style.backgroundColor);
         if (opacity < 1){
-        // color = divColor;
         opacity += 0.1;
         opacity = opacity.toString();
         if (toggleRainbow == true){
             color = replaceRGBAOpacity(divColor,opacity);
-            console.log('selected color = ' + color);
             e.target.style.backgroundColor = color;
-            // divColor = color;
-            console.log(color);
-            console.log(opacity);
         } else {
             color = replaceRGBADropperOpacity(divColor, opacity);
-            console.log('selected color = ' + color);
             e.target.style.backgroundColor = color;
-            // divColor = color;
-            console.log(color);
-            console.log(opacity);
-        }
-        } 
+        }} 
         else if (opacity >= 1){
             e.target.style.backgroundColor = color;
         }}
@@ -285,17 +271,10 @@ function dropperSelector(e, opacity){
     console.log('background color is = ' + e.target.style.backgroundColor);
     divColor = e.target.style.backgroundColor;
     console.log('dropper selector divColor = ' + divColor);
-    // divColor = replaceRGBAOpacity(divColor,opacity);
-    // console.log(e.target.style.backgroundColor);
     let rgbArray = parseRGB(divColor);
     colorPicker.value = rgbToHex(+rgbArray[0], +rgbArray[1],+rgbArray[2]);
     toggleDropper = false;
     toggleColor = true;
-    // divColor = e.target.style.backgroundColor;
-    // console.log('colordropper selecting '+divColor);
-    // toggleDropper = false;
-    // toggleColor = true;
-    //Put divColor 
 }
 function getOpacity(bgColor){
     console.log('running getOpacity on' + bgColor);
@@ -321,18 +300,10 @@ function getOpacity(bgColor){
 };
 
 function drawColor(e) {
-    // if (e.target.style.backgroundColor != 'undefined'){
-        // } //Make sure that every bg color has opacity
         if (e.type ==='mouseover' && !mouseDown) return;
         mouseDown = true;
         if ((e.type ==='mouseover' && mouseDown) || (mouseDown)){
-        // if (toggleDropper == true){
-        //     toggleDropper = false;
-        //     colorDropper.classList.remove('toggled');
-        // }
         let opacity = getOpacity(e.target.style.backgroundColor);
-        console.log('draw color opacity = ' + opacity);
-        // console.log(newOpacity);
         if (toggleBlack == true){
             colorSquare(e,divColor,opacity);
         }
@@ -385,44 +356,6 @@ function deleteGrid(){
         child = padContainer.firstElementChild;
     }};
 
-
-
-    
-const resetButton = document.getElementById('reset');
-resetButton.addEventListener('click', ()=> {
-    // let dimension = checkIfValidNumber('How many squared pixels do you want your canvas?');
-    if (dimension != null){
-        if (dimension > 100){
-            alert('You must pick a number that is not higher than 100');
-        }
-        deleteGrid();
-        populateGrid(dimension);
-        gridSize = dimension;
-    } else {
-        return
-    }});
-    
-//This just checks if the user input from the prompt is a valid number, and prevents the canvas from being
-//overwritten if the prompt is canceled or empty.
-function checkIfValidNumber(promptQuestion){
-    let isNumber;
-    while (true){
-        isNumber = prompt(promptQuestion);
-        if (isNumber >100){
-            alert('please enter a number lower than 100');
-        }
-        else if (isNumber === null){
-            return null;
-        }
-        else if (Number.isSafeInteger(Number(isNumber)) === true && isNumber != ''){
-            return isNumber;
-        } else if (isNumber === ''){
-            alert('Please enter a valid number');
-        }
-        else{
-            alert('Please enter a valid number')
-        }}};
-        
 const clearCanvas = document.getElementById('erase')
 clearCanvas.addEventListener('click', ()=>{
     let confirmation = confirm('Are you sure you want to erase your masterpiece?');
@@ -431,11 +364,7 @@ clearCanvas.addEventListener('click', ()=>{
         populateGrid(gridSize);
     }});
 
-//Create a button that saves the current divColor (ensure that it stays RGBA)
-    //Create a new div with the divColor that populates in the saved-colors-container.
-        //Give those divs a classname to give them the option to be styled
-        //Append those divs to the saved-colors-container
-        //Create listeners on click for those to overwrite/change the color swatch to their color.
+
 const savedColorsContainer = document.getElementById('saved-colors-container');
 const saveColorButton = document.getElementById('save-color');
 saveColorButton.addEventListener('click', ()=>{
@@ -456,6 +385,44 @@ saveColorButton.addEventListener('click', ()=>{
     })
     savedColorsContainer.appendChild(colorBox);
 }); 
+
+    //None of the below code is needed, since installing the slider, but keeping it here just in case.
+// const resetButton = document.getElementById('reset');
+// resetButton.addEventListener('click', ()=> {
+//     // let dimension = checkIfValidNumber('How many squared pixels do you want your canvas?');
+//     if (dimension != null){
+//         if (dimension > 100){
+//             alert('You must pick a number that is not higher than 100');
+//         }
+//         deleteGrid();
+//         populateGrid(dimension);
+//         gridSize = dimension;
+//     } else {
+//         return
+//     }});
+    
+//This just checks if the user input from the prompt is a valid number, and prevents the canvas from being
+//overwritten if the prompt is canceled or empty.
+// function checkIfValidNumber(promptQuestion){
+//     let isNumber;
+//     while (true){
+//         isNumber = prompt(promptQuestion);
+//         if (isNumber >100){
+//             alert('please enter a number lower than 100');
+//         }
+//         else if (isNumber === null){
+//             return null;
+//         }
+//         else if (Number.isSafeInteger(Number(isNumber)) === true && isNumber != ''){
+//             return isNumber;
+//         } else if (isNumber === ''){
+//             alert('Please enter a valid number');
+//         }
+//         else{
+//             alert('Please enter a valid number')
+//         }}};
+        
+
 
                     
                     
