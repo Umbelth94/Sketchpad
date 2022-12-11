@@ -70,6 +70,14 @@ h2{
     border-radius:5px;
 }
 
+/* .slider{
+    -webkit-apperance:none;
+    width:95%;
+    height:25px;
+    background:rgb(1, 65, 32);
+    outline:none;
+} */
+
 .btnlabel{
     margin:05px;
     font-size:large;
@@ -83,6 +91,29 @@ h2{
     justify-content:center;
 }
 
+#slider-container{
+    display:flex;
+    flex-direction:column;
+}
+
+.slider{
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;    
+    width:95%;
+    height:25px;
+    background:rgb(195, 210, 202);
+    outline:none;
+}
+
+.slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;   
+    width:30px;
+    height:30px;
+    background:rgb(1, 108, 1)
+}
 
 .dimension-count{
     text-align:center;
