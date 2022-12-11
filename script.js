@@ -24,8 +24,6 @@ colorPicker.addEventListener('input',pickColor);
 let toggleColor = false;
 function pickColor(e){
     divColor = colorPicker.value;
-    console.log(colorPicker.value);
-    console.log(divColor);
     toggleBlack = false;
     toggleRainbow = false;
     rainbowOverwrite = false;
@@ -46,19 +44,16 @@ blackButton.addEventListener('click',() => {
         toggleBlack = true;
         toggleColor = false;
         blackButton.classList.add('toggled')
-        console.log('toggleBlack is ' + toggleBlack);
         toggleRainbow = false;
         rainbowButton.classList.remove('toggled');
         overWriteButton.classList.remove('toggled');
         colorPicker.classList.remove('btncolortoggled');
         rainbowOverwrite = false;
-        console.log('toggleRainbow is ' + toggleRainbow);
         divColor = 'rgba(0,0,0,1)';
 
     } else {
         blackButton.classList.remove('toggled');
         toggleBlack = false;
-        console.log('toggleBlack is ' + toggleBlack)
     }
 });
 
@@ -337,9 +332,6 @@ function drawColor(e) {
             colorPicker.classList.add('btncolortoggled');
         }    
         else if (toggleColor == true) { 
-
-            console.log('color mode');
-            console.log(divColor);//Selected Color
             colorSquare(e,divColor,opacity);
         };
         if ((e.type ==='mouseover' && mouseDown && e.shiftKey) || (mouseDown && e.shiftKey)){
