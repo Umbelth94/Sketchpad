@@ -89,11 +89,11 @@ h2{
 
 
 
-#saved-colors-container{
+/* #saved-colors-container{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-}
+} */
 
 #slider-container{
     display:flex;
