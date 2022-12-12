@@ -14,6 +14,9 @@ Some features I intend on adding in the future, if I ever come back to this proj
 -Toggleable color themes for the web page itself
 -Feature to change the background color of the canvas 
 
+Note:The Copy Color Feature lets you turn your stylus into whatever color pixel that you click on.
+     The Save Color Feature saves the most recent color used and saves it for use later in the bottom section of the web page.
+     
 Overall, I learned a lot with this project through trial and error.  I definitely learned a lot of ways NOT to do things, and how taking the time to really think about how I'm going to structure the basic building blocks of the project will save me a lot of headaches than if I were to just brute force my way through different features and additions (like I did).  
 
 I hope you enjoy tinkering around with what I've built here, as I am quite proud of it.  I also hope you enjoy looking through my javascript and trying to figure out if I actually knew what I was doing or not.  (I was fine, mostly).
