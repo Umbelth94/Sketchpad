@@ -194,8 +194,8 @@ h2{
     flex-direction:column;
     flex-wrap:wrap;
     border: 2px solid rgb(17, 243, 126);;
-    width:600px;
-    height:600px;
+    width:500px;
+    height:500px;
     flex-shrink:0;
 }
 
