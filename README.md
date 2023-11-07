@@ -1,5 +1,5 @@
 # Sketchpad
-
+Live Link: https://umbelth94.github.io/Sketchpad/
 ## Description
 Sketchpad based on the Odin Project
 
@@ -40,6 +40,7 @@ I hope you enjoy tinkering around with what I've built here, as I am quite proud
 
 Thanks,
 
-Travis 
+Travis Umbel
+You can view the rest of my Github Repos here: https://github.com/Umbelth94
 
-Live Link : https://umbelth94.github.io/Sketchpad/
+
