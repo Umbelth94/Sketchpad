@@ -52,7 +52,8 @@ h2{
     border-radius:10px;
     display:flex;
     margin:40px;
-    /* flex-grow:1; */
+    /* flex-grow:1;
+    flex-shrink:1; */
     flex-direction:column;
     justify-content:space-evenly;
     align-items:end;
