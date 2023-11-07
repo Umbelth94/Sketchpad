@@ -118,10 +118,10 @@ borderButton.addEventListener('click',() => {
     }}
     else if (borderToggle == false){
         borderButton.classList.remove('toggled');
-        for (i = 0; i<squares.length;i++){ //SQUARES CAN BE TARGETED NOW USING THIS ARRAY METHOD THING
-            squares[i].classList.toggle('border'); //SQUARES CAN BE TARGETED NOW USING THIS ARRAY METHOD THING
+        for (i = 0; i<squares.length;i++){ 
+            squares[i].classList.toggle('border'); 
             borderToggle = true;
-    }}}); //SQUARES CAN BE TARGETED NOW
+    }}}); 
 
 
 let rainbowOverwrite = false;
@@ -162,8 +162,6 @@ rainbowButton.addEventListener('click',() =>{
 let randomColor;
 function generateRandomColor(){
     randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-    console.log('random color converted = ' + randomColor);
-    console.log('random color converted = ' + divColor);
     divColor = hexToRGBA(randomColor, '1');
     return divColor;
 }
